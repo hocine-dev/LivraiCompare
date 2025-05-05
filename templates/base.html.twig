@@ -1,17 +1,75 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="build/app.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LivraiCompare Algérie{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body class="flex min-h-screen flex-col">
+    {% block header %}
+        {% include 'components/_header.html.twig' %}
+    {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    {% block body %}{% endblock %}
+
+    {% block footer %}
+        {% include 'components/_footer.html.twig' %}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script>
+            // Script pour gérer les onglets
+            function setupTabs(tabsId) {
+                const tabs = document.querySelectorAll(`#${tabsId} .tab-trigger`);
+                const contents = document.querySelectorAll(`#${tabsId} .tab-content`);
+                
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const target = tab.getAttribute('data-target');
+                        
+                        // Désactiver tous les onglets
+                        tabs.forEach(t => t.classList.remove('bg-gray-100', 'text-emerald-900'));
+                        tabs.forEach(t => t.classList.add('text-gray-500'));
+                        
+                        // Activer l'onglet cliqué
+                        tab.classList.add('bg-gray-100', 'text-emerald-900');
+                        tab.classList.remove('text-gray-500');
+                        
+                        // Masquer tous les contenus
+                        contents.forEach(c => c.classList.add('hidden'));
+                        
+                        // Afficher le contenu correspondant
+                        document.getElementById(target).classList.remove('hidden');
+                    });
+                });
+            }
+
+            // Script pour le formulaire de comparaison
+            document.addEventListener('DOMContentLoaded', function() {
+                const compareForm = document.getElementById('compare-form');
+                const resultsSection = document.getElementById('results-section');
+                
+                if (compareForm) {
+                    compareForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        if (resultsSection) {
+                            resultsSection.classList.remove('hidden');
+                            // Faire défiler jusqu'aux résultats
+                            resultsSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                }
+
+                // Initialiser les onglets
+                setupTabs('delivery-tabs');
+                setupTabs('dashboard-tabs');
+                setupTabs('transporteurs-tabs');
+            });
+        </script>
+    {% endblock %}
+</body>
 </html>

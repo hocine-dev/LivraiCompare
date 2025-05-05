@@ -1,0 +1,289 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord - ShipCompare Algérie{% endblock %}
+
+{% block header %}
+<header class="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
+    <div class="container flex h-16 items-center justify-between">
+        <div class="flex items-center gap-2 font-bold text-xl">
+            <i class="fas fa-truck text-emerald-600"></i>
+            <span>ShipCompare Algérie</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <form class="relative hidden md:block">
+                <i class="fas fa-search absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"></i>
+                <input type="search" placeholder="Rechercher..." class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 pl-8 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:w-80 lg:w-96">
+            </form>
+            <button type="button" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 w-9 relative">
+                <i class="fas fa-bell h-5 w-5"></i>
+                <span class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-medium text-white">
+                    3
+                </span>
+            </button>
+            <div class="relative">
+                <button type="button" id="user-menu-button" class="inline-flex items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                    <img
+                        src="{{ asset('images/avatar.jpg') }}"
+                        width="32"
+                        height="32"
+                        class="rounded-full"
+                        alt="Avatar"
+                    />
+                </button>
+                <div id="user-menu" class="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <div class="py-1" role="none">
+                        <span class="block px-4 py-2 text-sm text-gray-700 font-medium">Mon compte</span>
+                        <div class="border-t border-gray-100"></div>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
+                            <i class="fas fa-user mr-2 h-4 w-4"></i>
+                            <span>Profil</span>
+                        </a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
+                            <i class="fas fa-cog mr-2 h-4 w-4"></i>
+                            <span>Paramètres</span>
+                        </a>
+                        <div class="border-t border-gray-100"></div>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
+                            <i class="fas fa-sign-out-alt mr-2 h-4 w-4"></i>
+                            <span>Déconnexion</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+{% block body %}
+<div class="flex flex-1">
+    <aside class="hidden w-64 border-r bg-gray-50/50 lg:block">
+        <div class="flex h-full flex-col gap-2 p-4">
+            <div class="px-2 py-2">
+                <h2 class="text-lg font-semibold tracking-tight">Menu principal</h2>
+            </div>
+            <nav class="grid gap-1 px-2">
+                <a href="{{ path('dashboard') }}" class="flex items-center gap-3 rounded-lg bg-gray-100 px-3 py-2 text-emerald-900 transition-all">
+                    <i class="fas fa-chart-bar h-4 w-4"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                <a href="{{ path('livraisons') }}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-emerald-900">
+                    <i class="fas fa-truck h-4 w-4"></i>
+                    <span>Livraisons</span>
+                </a>
+                <a href="{{ path('transporteurs') }}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-emerald-900">
+                    <i class="fas fa-map h-4 w-4"></i>
+                    <span>Transporteurs</span>
+                </a>
+                <a href="{{ path('statistiques') }}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-emerald-900">
+                    <i class="fas fa-chart-line h-4 w-4"></i>
+                    <span>Statistiques</span>
+                </a>
+                <a href="{{ path('historique') }}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-emerald-900">
+                    <i class="fas fa-clock h-4 w-4"></i>
+                    <span>Historique</span>
+                </a>
+                <a href="{{ path('parametres') }}" class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-emerald-900">
+                    <i class="fas fa-cog h-4 w-4"></i>
+                    <span>Paramètres</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
+    <main class="flex-1 overflow-auto p-4 md:p-6">
+        <div class="grid gap-4 md:gap-8">
+            <div class="flex flex-col gap-2">
+                <h1 class="text-2xl font-bold tracking-tight">Tableau de bord</h1>
+                <p class="text-gray-500">
+                    Bienvenue sur votre tableau de bord de comparaison des frais de livraison.
+                </p>
+            </div>
+            <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                    <div class="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
+                        <h3 class="text-sm font-medium">Livraisons totales</h3>
+                        <i class="fas fa-box h-4 w-4 text-muted-foreground"></i>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="text-2xl font-bold">127</div>
+                        <p class="text-xs text-muted-foreground">+14% par rapport au mois dernier</p>
+                    </div>
+                </div>
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                    <div class="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
+                        <h3 class="text-sm font-medium">Économies réalisées</h3>
+                        <i class="fas fa-chart-line h-4 w-4 text-muted-foreground"></i>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="text-2xl font-bold">24 500 DZD</div>
+                        <p class="text-xs text-muted-foreground">+5.2% par rapport au mois dernier</p>
+                    </div>
+                </div>
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                    <div class="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
+                        <h3 class="text-sm font-medium">Transporteur préféré</h3>
+                        <i class="fas fa-truck h-4 w-4 text-muted-foreground"></i>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="text-2xl font-bold">Yalidine</div>
+                        <p class="text-xs text-muted-foreground">68% de vos livraisons</p>
+                    </div>
+                </div>
+                <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                    <div class="flex flex-row items-center justify-between space-y-0 p-6 pb-2">
+                        <h3 class="text-sm font-medium">Délai moyen</h3>
+                        <i class="fas fa-clock h-4 w-4 text-muted-foreground"></i>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <div class="text-2xl font-bold">36h</div>
+                        <p class="text-xs text-muted-foreground">-12% par rapport au mois dernier</p>
+                    </div>
+                </div>
+            </div>
+            <div id="dashboard-tabs" class="space-y-4">
+                <div class="border-b">
+                    <div class="flex">
+                        <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap border-b-2 border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600" data-target="recent-tab">
+                            Livraisons récentes
+                        </button>
+                        <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium text-gray-500" data-target="upcoming-tab">
+                            Livraisons à venir
+                        </button>
+                        <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium text-gray-500" data-target="savings-tab">
+                            Économies
+                        </button>
+                    </div>
+                </div>
+                <div id="recent-tab" class="tab-content space-y-4">
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                        <div class="p-6">
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-lg font-semibold">Livraisons récentes</h3>
+                                <p class="text-sm text-gray-500">Vos 5 dernières livraisons effectuées</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                                        1
+                                    </span>
+                                    <div class="font-medium">Alger → Constantine</div>
+                                    <div class="text-gray-500">Yalidine</div>
+                                    <div class="text-right text-emerald-600 font-medium">600 DZD</div>
+                                </div>
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                                        2
+                                    </span>
+                                    <div class="font-medium">Oran → Alger</div>
+                                    <div class="text-gray-500">Temtem One</div>
+                                    <div class="text-right text-emerald-600 font-medium">750 DZD</div>
+                                </div>
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                                        3
+                                    </span>
+                                    <div class="font-medium">Alger → Béjaïa</div>
+                                    <div class="text-gray-500">Easy Relay</div>
+                                    <div class="text-right text-emerald-600 font-medium">550 DZD</div>
+                                </div>
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                                        4
+                                    </span>
+                                    <div class="font-medium">Tizi Ouzou → Alger</div>
+                                    <div class="text-gray-500">Yalidine</div>
+                                    <div class="text-right text-emerald-600 font-medium">450 DZD</div>
+                                </div>
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                                        5
+                                    </span>
+                                    <div class="font-medium">Alger → Annaba</div>
+                                    <div class="text-gray-500">Temtem One</div>
+                                    <div class="text-right text-emerald-600 font-medium">800 DZD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="upcoming-tab" class="tab-content space-y-4 hidden">
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                        <div class="p-6">
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-lg font-semibold">Livraisons à venir</h3>
+                                <p class="text-sm text-gray-500">Vos prochaines livraisons planifiées</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                                        1
+                                    </span>
+                                    <div class="font-medium">Alger → Oran</div>
+                                    <div class="text-gray-500">Yalidine</div>
+                                    <div class="text-right font-medium">Demain</div>
+                                </div>
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                                        2
+                                    </span>
+                                    <div class="font-medium">Alger → Sétif</div>
+                                    <div class="text-gray-500">Easy Relay</div>
+                                    <div class="text-right font-medium">Dans 2 jours</div>
+                                </div>
+                                <div class="grid grid-cols-[25px_1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+                                        3
+                                    </span>
+                                    <div class="font-medium">Alger → Tlemcen</div>
+                                    <div class="text-gray-500">Temtem One</div>
+                                    <div class="text-right font-medium">Dans 3 jours</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="savings-tab" class="tab-content space-y-4 hidden">
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                        <div class="p-6">
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-lg font-semibold">Économies réalisées</h3>
+                                <p class="text-sm text-gray-500">Économies réalisées grâce à la comparaison des tarifs</p>
+                            </div>
+                        </div>
+                        <div class="p-6 pt-0">
+                            <div class="space-y-4">
+                                <div class="grid grid-cols-[1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <div class="font-medium">Avril 2024</div>
+                                    <div class="text-gray-500">32 livraisons</div>
+                                    <div class="text-right text-emerald-600 font-medium">6 400 DZD</div>
+                                </div>
+                                <div class="grid grid-cols-[1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <div class="font-medium">Mars 2024</div>
+                                    <div class="text-gray-500">28 livraisons</div>
+                                    <div class="text-right text-emerald-600 font-medium">5 600 DZD</div>
+                                </div>
+                                <div class="grid grid-cols-[1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <div class="font-medium">Février 2024</div>
+                                    <div class="text-gray-500">35 livraisons</div>
+                                    <div class="text-right text-emerald-600 font-medium">7 000 DZD</div>
+                                </div>
+                                <div class="grid grid-cols-[1fr_120px_120px] items-center gap-4 rounded-lg border p-4">
+                                    <div class="font-medium">Janvier 2024</div>
+                                    <div class="text-gray-500">32 livraisons</div>
+                                    <div class="text-right text-emerald-600 font-medium">5 500 DZD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

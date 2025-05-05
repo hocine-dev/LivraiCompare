@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LivraiCompare Algérie - Comparateur de frais de livraison{% endblock %}
+
+{% block body %}
+<main class="flex-1">
+
+<!-- hero section -->
+  <section class="bg-emerald-50 py-12 md:py-16">
+    <div class="container mx-auto px-4 md:px-6">
+        <div class="grid gap-6 items-center lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_600px]">
+            <!-- Texte à gauche -->
+            <div class="flex flex-col justify-center space-y-6">
+                <div class="space-y-4">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+                        Optimisez vos frais de livraison en Algérie
+                    </h1>
+                    <p class="text-lg text-gray-600 max-w-xl">
+                        Comparez instantanément les tarifs et délais de livraison des principaux services de livraison algériens
+                        pour réduire vos coûts et améliorer la satisfaction client.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#compare"
+                       class="bg-emerald-600 text-white px-6 py-3 rounded-md text-sm font-medium hover:bg-emerald-700 transition">
+                        Commencer maintenant
+                    </a>
+                    <a href="#en-savoir-plus"
+                       class="border border-gray-300 text-gray-700 px-6 py-3 rounded-md text-sm font-medium hover:bg-gray-100 transition">
+                        En savoir plus
+                    </a>
+                </div>
+            </div>
+
+            <!-- Image à droite -->
+            <div class="lg:order-last">
+                <img
+                    src="{{ asset('images/hero.png') }}"
+                    alt="Illustration de livraison"
+                    class="w-full h-auto rounded-xl"
+                />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Fonctionnalités section -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4 md:px-6">
+        <!-- Titre + sous-titre -->
+        <div class="text-center space-y-4 max-w-3xl mx-auto">
+            <div class="inline-block rounded-full bg-emerald-100 px-4 py-1 text-sm text-emerald-700 font-medium">
+                Fonctionnalités
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900">
+                Pourquoi choisir notre plateforme ?
+            </h2>
+            <p class="text-gray-500 text-lg">
+                Notre application vous aide à optimiser vos coûts de livraison et à améliorer l'expérience de vos clients.
+            </p>
+        </div>
+
+        <!-- Cartes de fonctionnalités -->
+        <div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+            <!-- Bloc 1 -->
+            <div class="text-center space-y-4">
+                <svg class="mx-auto h-10 w-10 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 17l6-6 4 4 8-8" />
+                </svg>
+                <h3 class="text-xl font-bold text-gray-900">Comparaison en temps réel</h3>
+                <p class="text-gray-500 text-sm">
+                    Comparez instantanément les tarifs de tous les transporteurs algériens en fonction de vos besoins spécifiques.
+                </p>
+            </div>
+
+            <!-- Bloc 2 -->
+            <div class="text-center space-y-4">
+                <svg class="mx-auto h-10 w-10 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 3v1m0 16v1m8-9h1M3 12H2m15.364-6.364l.707.707M6.343 17.657l-.707.707M17.657 17.657l.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                </svg>
+                <h3 class="text-xl font-bold text-gray-900">Couverture nationale</h3>
+                <p class="text-gray-500 text-sm">
+                    Accédez aux informations de livraison pour toutes les wilayas d'Algérie, y compris les zones éloignées.
+                </p>
+            </div>
+
+            <!-- Bloc 3 -->
+            <div class="text-center space-y-4">
+                <svg class="mx-auto h-10 w-10 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M3 7l9 5 9-5-9-5-9 5zm0 6l9 5 9-5M3 17l9 5 9-5" />
+                </svg>
+                <h3 class="text-xl font-bold text-gray-900">Tarification transparente</h3>
+                <p class="text-gray-500 text-sm">
+                    Visualisez tous les frais associés à vos livraisons sans surprises ni coûts cachés.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <section id="compare" class="bg-gray-50 py-12 md:py-16 lg:py-20">
+        <div class="container px-4 md:px-6">
+            <div class="mx-auto flex flex-col items-center justify-center space-y-4 text-center">
+                <div class="space-y-2">
+                    <h2 class="text-3xl font-bold tracking-tighter md:text-4xl/tight">
+                        Comparez les frais de livraison
+                    </h2>
+                    <p class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                        Entrez les détails de votre colis pour obtenir une comparaison instantanée des tarifs de livraison.
+                    </p>
+                </div>
+            </div>
+            <div class="mx-auto max-w-4xl py-8">
+                {% include 'components/_delivery_comparison_form.html.twig' %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -1,0 +1,314 @@
+{% set wilayas = [
+    "Adrar", "Chlef", "Laghouat", "Oum El Bouaghi", "Batna", "Béjaïa", "Biskra", "Béchar", 
+    "Blida", "Bouira", "Tamanrasset", "Tébessa", "Tlemcen", "Tiaret", "Tizi Ouzou", "Alger", 
+    "Djelfa", "Jijel", "Sétif", "Saïda", "Skikda", "Sidi Bel Abbès", "Annaba", "Guelma", 
+    "Constantine", "Médéa", "Mostaganem", "M'Sila", "Mascara", "Ouargla", "Oran", "El Bayadh", 
+    "Illizi", "Bordj Bou Arréridj", "Boumerdès", "El Tarf", "Tindouf", "Tissemsilt", "El Oued", 
+    "Khenchela", "Souk Ahras", "Tipaza", "Mila", "Aïn Defla", "Naâma", "Aïn Témouchent", 
+    "Ghardaïa", "Relizane"
+] %}
+
+<div class="w-full rounded-lg border bg-card text-card-foreground shadow-sm">
+    <div class="p-6">
+        <div id="delivery-tabs">
+            <div class="grid w-full grid-cols-2 mb-6">
+                <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-l-md border-r border-b-0 border-l-0 border-t-0 border-input bg-gray-100 px-3 py-1.5 text-sm font-medium text-emerald-900 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm" data-target="standard-tab">
+                    Livraison standard
+                </button>
+                <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap rounded-r-md border-l-0 border-b-0 border-r-0 border-t-0 border-input px-3 py-1.5 text-sm font-medium text-gray-500 ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm" data-target="express-tab">
+                    Livraison express
+                </button>
+            </div>
+
+            <div id="standard-tab" class="tab-content">
+                <form id="compare-form" class="space-y-6">
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="origin" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Wilaya d'origine</label>
+                            <select id="origin" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <option value="">Sélectionnez une wilaya</option>
+                                {% for wilaya in wilayas %}
+                                    <option value="{{ wilaya }}" {% if wilaya == "Alger" %}selected{% endif %}>{{ wilaya }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="destination" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Wilaya de destination</label>
+                            <select id="destination" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <option value="">Sélectionnez une wilaya</option>
+                                {% for wilaya in wilayas %}
+                                    <option value="{{ wilaya }}">{{ wilaya }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Type de colis</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="small" name="package_type" value="small" checked class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="small" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Petit (≤ 1kg)
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="medium" name="package_type" value="medium" class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="medium" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Moyen (1-5kg)
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="large" name="package_type" value="large" class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="large" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Grand (>5kg)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="weight" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Poids (kg)</label>
+                            <input id="weight" type="number" min="0.1" step="0.1" placeholder="Ex: 2.5" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="value" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Valeur du colis (DZD)</label>
+                            <input id="value" type="number" min="0" placeholder="Ex: 5000" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Options de paiement</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="cod" name="payment_option" value="cod" checked class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="cod" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Paiement à la livraison
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="prepaid" name="payment_option" value="prepaid" class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="prepaid" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Prépayé
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white hover:bg-emerald-700 h-9 px-4 py-2 w-full">
+                        Comparer les tarifs
+                    </button>
+                </form>
+            </div>
+
+            <div id="express-tab" class="tab-content hidden">
+                <form id="compare-form-express" class="space-y-6">
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="origin-express" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Wilaya d'origine</label>
+                            <select id="origin-express" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <option value="">Sélectionnez une wilaya</option>
+                                {% for wilaya in wilayas %}
+                                    <option value="{{ wilaya }}" {% if wilaya == "Alger" %}selected{% endif %}>{{ wilaya }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="destination-express" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Wilaya de destination</label>
+                            <select id="destination-express" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <option value="">Sélectionnez une wilaya</option>
+                                {% for wilaya in wilayas %}
+                                    <option value="{{ wilaya }}">{{ wilaya }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Type de colis</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="small-express" name="package_type_express" value="small" checked class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="small-express" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Petit (≤ 1kg)
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="medium-express" name="package_type_express" value="medium" class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="medium-express" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Moyen (1-5kg)
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="large-express" name="package_type_express" value="large" class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="large-express" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Grand (>5kg)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid gap-4 md:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="weight-express" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Poids (kg)</label>
+                            <input id="weight-express" type="number" min="0.1" step="0.1" placeholder="Ex: 2.5" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="value-express" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Valeur du colis (DZD)</label>
+                            <input id="value-express" type="number" min="0" placeholder="Ex: 5000" class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Urgence de livraison</label>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="same-day" name="delivery_urgency" value="same-day" checked class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="same-day" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Même jour
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="next-day" name="delivery_urgency" value="next-day" class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="next-day" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    Jour suivant
+                                </label>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <input type="radio" id="two-day" name="delivery_urgency" value="two-day" class="h-4 w-4 rounded-full border border-primary text-primary shadow focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+                                <label for="two-day" class="flex-1 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                                    2 jours
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white hover:bg-emerald-700 h-9 px-4 py-2 w-full">
+                        Comparer les tarifs express
+                    </button>
+                </form>
+            </div>
+
+            <div id="results-section" class="mt-8 space-y-6 hidden">
+                <h3 class="text-xl font-bold">Résultats de la comparaison</h3>
+                <div class="grid gap-4">
+                    <div class="overflow-hidden rounded-lg border-2 border-emerald-500">
+                        <div class="bg-emerald-50 px-4 py-2 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check-circle text-emerald-600"></i>
+                                <span class="font-semibold">Meilleure option</span>
+                            </div>
+                            <span class="text-sm bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full">Économie: 300 DZD</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-truck text-gray-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Yalidine Express</h4>
+                                        <p class="text-sm text-gray-500">Livraison standard</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <i class="fas fa-dollar-sign h-5 w-5 mx-auto text-gray-500"></i>
+                                        <p class="font-bold">600 DZD</p>
+                                        <p class="text-xs text-gray-500">Prix</p>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-clock h-5 w-5 mx-auto text-gray-500"></i>
+                                        <p class="font-bold">24-48h</p>
+                                        <p class="text-xs text-gray-500">Délai</p>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-check-circle h-5 w-5 mx-auto text-emerald-500"></i>
+                                        <p class="font-bold">95%</p>
+                                        <p class="text-xs text-gray-500">Fiabilité</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white hover:bg-emerald-700 h-9 px-4 py-2">
+                                    Choisir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                        <div class="p-4">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-truck text-gray-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Temtem One</h4>
+                                        <p class="text-sm text-gray-500">Livraison standard</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <i class="fas fa-dollar-sign h-5 w-5 mx-auto text-gray-500"></i>
+                                        <p class="font-bold">750 DZD</p>
+                                        <p class="text-xs text-gray-500">Prix</p>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-clock h-5 w-5 mx-auto text-gray-500"></i>
+                                        <p class="font-bold">24h</p>
+                                        <p class="text-xs text-gray-500">Délai</p>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-check-circle h-5 w-5 mx-auto text-emerald-500"></i>
+                                        <p class="font-bold">98%</p>
+                                        <p class="text-xs text-gray-500">Fiabilité</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="inline-flex items-center justify-center rounded-md border border-input bg-background text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
+                                    Choisir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                        <div class="p-4">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="fas fa-truck text-gray-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Easy Relay</h4>
+                                        <p class="text-sm text-gray-500">Livraison standard</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <i class="fas fa-dollar-sign h-5 w-5 mx-auto text-gray-500"></i>
+                                        <p class="font-bold">900 DZD</p>
+                                        <p class="text-xs text-gray-500">Prix</p>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-clock h-5 w-5 mx-auto text-gray-500"></i>
+                                        <p class="font-bold">24-72h</p>
+                                        <p class="text-xs text-gray-500">Délai</p>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-check-circle h-5 w-5 mx-auto text-emerald-500"></i>
+                                        <p class="font-bold">90%</p>
+                                        <p class="text-xs text-gray-500">Fiabilité</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="inline-flex items-center justify-center rounded-md border border-input bg-background text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2">
+                                    Choisir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

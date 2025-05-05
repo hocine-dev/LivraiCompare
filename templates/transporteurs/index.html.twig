@@ -1,0 +1,240 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Transporteurs - ShipCompare Algérie{% endblock %}
+
+{% block body %}
+<main class="flex-1">
+    <section class="py-12">
+        <div class="container px-4 md:px-6">
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold tracking-tighter">Transporteurs</h1>
+                    <p class="text-gray-500">Découvrez les transporteurs disponibles en Algérie et leurs services</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"></i>
+                        <input
+                            type="search"
+                            placeholder="Rechercher un transporteur..."
+                            class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 pl-8 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:w-[250px]"
+                        />
+                    </div>
+                    <button type="button" class="inline-flex items-center justify-center rounded-md border border-input bg-background text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground h-9 w-9">
+                        <i class="fas fa-filter h-4 w-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="transporteurs-tabs" class="mt-8">
+                <div class="border-b mb-8">
+                    <div class="flex">
+                        <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap border-b-2 border-emerald-600 px-4 py-2 text-sm font-medium text-emerald-600" data-target="all-tab">
+                            Tous
+                        </button>
+                        <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium text-gray-500" data-target="national-tab">
+                            National
+                        </button>
+                        <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium text-gray-500" data-target="regional-tab">
+                            Régional
+                        </button>
+                        <button type="button" class="tab-trigger inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium text-gray-500" data-target="express-tab">
+                            Express
+                        </button>
+                    </div>
+                </div>
+
+                <div id="all-tab" class="tab-content space-y-8">
+                    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                            <div class="p-6 pb-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                            <i class="fas fa-truck h-6 w-6 text-emerald-600"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-lg">Yalidine Express</h3>
+                                            <p class="text-sm text-gray-500">Service national</p>
+                                        </div>
+                                    </div>
+                                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-emerald-100 text-emerald-800 hover:bg-emerald-100">
+                                        Populaire
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0 pb-6">
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-map-marker-alt mr-1 h-4 w-4"></i>
+                                            Couverture
+                                        </div>
+                                        <div class="font-medium">58 wilayas</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-clock mr-1 h-4 w-4"></i>
+                                            Délai moyen
+                                        </div>
+                                        <div class="font-medium">24-48h</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-dollar-sign mr-1 h-4 w-4"></i>
+                                            Tarif moyen
+                                        </div>
+                                        <div class="font-medium">600-900 DZD</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-check-circle mr-1 h-4 w-4"></i>
+                                            Fiabilité
+                                        </div>
+                                        <div class="font-medium">95%</div>
+                                    </div>
+                                </div>
+                                <a href="{{ path('transporteur_details', {'slug': 'yalidine-express'}) }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white hover:bg-emerald-700 h-9 px-4 py-2 w-full">
+                                    Voir les détails
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                            <div class="p-6 pb-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                            <i class="fas fa-truck h-6 w-6 text-emerald-600"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-lg">Temtem One</h3>
+                                            <p class="text-sm text-gray-500">Service national</p>
+                                        </div>
+                                    </div>
+                                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-blue-100 text-blue-800 hover:bg-blue-100">
+                                        Express
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0 pb-6">
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-map-marker-alt mr-1 h-4 w-4"></i>
+                                            Couverture
+                                        </div>
+                                        <div class="font-medium">42 wilayas</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-clock mr-1 h-4 w-4"></i>
+                                            Délai moyen
+                                        </div>
+                                        <div class="font-medium">24h</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-dollar-sign mr-1 h-4 w-4"></i>
+                                            Tarif moyen
+                                        </div>
+                                        <div class="font-medium">750-1200 DZD</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-check-circle mr-1 h-4 w-4"></i>
+                                            Fiabilité
+                                        </div>
+                                        <div class="font-medium">98%</div>
+                                    </div>
+                                </div>
+                                <a href="{{ path('transporteur_details', {'slug': 'temtem-one'}) }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white hover:bg-emerald-700 h-9 px-4 py-2 w-full">
+                                    Voir les détails
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                            <div class="p-6 pb-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-12 w-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                            <i class="fas fa-truck h-6 w-6 text-emerald-600"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-semibold text-lg">Easy Relay</h3>
+                                            <p class="text-sm text-gray-500">Service national</p>
+                                        </div>
+                                    </div>
+                                    <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-gray-100 text-gray-800 hover:bg-gray-100">
+                                        Économique
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6 pt-0 pb-6">
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-map-marker-alt mr-1 h-4 w-4"></i>
+                                            Couverture
+                                        </div>
+                                        <div class="font-medium">48 wilayas</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-clock mr-1 h-4 w-4"></i>
+                                            Délai moyen
+                                        </div>
+                                        <div class="font-medium">24-72h</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-dollar-sign mr-1 h-4 w-4"></i>
+                                            Tarif moyen
+                                        </div>
+                                        <div class="font-medium">500-800 DZD</div>
+                                    </div>
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center text-sm text-gray-500">
+                                            <i class="fas fa-check-circle mr-1 h-4 w-4"></i>
+                                            Fiabilité
+                                        </div>
+                                        <div class="font-medium">90%</div>
+                                    </div>
+                                </div>
+                                <a href="{{ path('transporteur_details', {'slug': 'easy-relay'}) }}" class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-emerald-600 text-white hover:bg-emerald-700 h-9 px-4 py-2 w-full">
+                                    Voir les détails
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="national-tab" class="tab-content hidden space-y-8">
+                    <div class="text-center py-8">
+                        <p class="text-gray-500">
+                            Filtrez par "National" pour voir les transporteurs qui desservent tout le pays.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="regional-tab" class="tab-content hidden space-y-8">
+                    <div class="text-center py-8">
+                        <p class="text-gray-500">
+                            Filtrez par "Régional" pour voir les transporteurs qui desservent des régions spécifiques.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="express-tab" class="tab-content hidden space-y-8">
+                    <div class="text-center py-8">
+                        <p class="text-gray-500">
+                            Filtrez par "Express" pour voir les transporteurs qui offrent des services de livraison rapide.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
