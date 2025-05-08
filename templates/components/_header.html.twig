@@ -1,23 +1,23 @@
 <header class="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
   <div class="container mx-auto flex h-16 items-center justify-between px-4">
     <!-- Logo -->
-    <div class="flex items-center gap-2 font-bold text-xl">
-      <i class="fas fa-truck text-emerald-600" ></i>
+    <div class="flex items-center gap-2 font-bold text-xl cursor-pointer">
+      <i class="fas fa-truck text-emerald-600"></i>
       <span>LivraiCompare</span>
     </div>
 
     <!-- Navigation -->
     <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-      <a href="/" class="hover:text-emerald-600 transition-colors">Accueil</a>
-      <a href="/" class="hover:text-emerald-600 transition-colors">Comparateur</a>
-      <a href="/" class="hover:text-emerald-600 transition-colors">À propos</a>
-      <a href="/" class="hover:text-emerald-600 transition-colors">Contact</a>
+      <a href="{{ app.request.get('_route') != 'home' ? '/' : '#' }}" class="hover:text-emerald-600 transition-colors">Accueil</a>
+      <a href="{{ app.request.get('_route') == 'home' ? '#compare' : '/#compare' }}" class="hover:text-emerald-600 transition-colors">Comparateur</a>
+      <a href="/about" class="hover:text-emerald-600 transition-colors">À propos</a>
+      <a href="/contact" class="hover:text-emerald-600 transition-colors">Contact</a>
     </nav>
 
     <!-- Actions -->
     <div class="flex items-center gap-4">
      
-      <a href="/" class="hidden md:inline-flex items-center bg-emerald-600 text-white px-4 py-2 rounded-md text-sm hover:bg-emerald-700 transition">
+      <a href="/api" class="hidden md:inline-flex items-center bg-emerald-600 text-white px-4 py-2 rounded-md text-sm hover:bg-emerald-700 transition">
         API
       </a>
       <!-- Mobile Menu -->
@@ -27,3 +27,35 @@
     </div>
   </div>
 </header>
+
+
+<!-- Back to Top Button -->
+<button id="backToTop" class="hidden fixed bottom-4 right-4 bg-emerald-600 text-white p-3 rounded-full shadow-lg hover:bg-emerald-700 transition">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+  // Back to Top Button Logic
+  const backToTopButton = document.getElementById('backToTop');
+  const logo = document.querySelector('.flex.items-center.gap-2.font-bold.text-xl');
+
+  // Show/Hide Back to Top Button on Scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 200) {
+      backToTopButton.classList.remove('hidden');
+    } else {
+      backToTopButton.classList.add('hidden');
+    }
+  });
+
+  // Scroll to Top when Back to Top Button is Clicked
+  backToTopButton.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Scroll to Top when Logo is Clicked
+  logo.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>

@@ -1,0 +1,679 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}API - LivraiCompare Algérie{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-white">
+    <!-- En-tête -->
+    <div class="relative bg-emerald-700">
+        <div class="absolute inset-0">
+            <img src="{{ asset('images/bg.png') }}" alt="API Integration" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-b from-emerald-800 to-emerald-700 mix-blend-multiply"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">API LivraiCompare</h1>
+            <p class="mt-6 max-w-3xl text-xl text-emerald-50">Intégrez notre puissante API de comparaison de livraison directement dans vos applications et sites web.</p>
+            <div class="mt-10 flex flex-col sm:flex-row gap-4">
+                <a href="#documentation" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-emerald-700 bg-white hover:bg-emerald-50">
+                    Documentation
+                </a>
+                <a href="#register" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-500">
+                    Obtenir une clé API
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section d'introduction -->
+    <div class="py-16 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                        Pourquoi utiliser notre API ?
+                    </h2>
+                    <p class="mt-4 text-lg text-gray-500">
+                        L'API LivraiCompare vous permet d'accéder à notre base de données complète de transporteurs algériens et d'intégrer des fonctionnalités de comparaison de livraison directement dans vos applications.
+                    </p>
+                    <div class="mt-8 space-y-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-emerald-500 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Intégration facile</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Notre API RESTful est simple à intégrer avec n'importe quelle plateforme ou langage de programmation.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-emerald-500 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Données fiables</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Accédez à des données précises et à jour sur les tarifs et délais de livraison de tous les transporteurs algériens.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-emerald-500 text-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">Performances optimales</h3>
+                                <p class="mt-2 text-base text-gray-500">
+                                    Notre API est conçue pour être rapide et efficace, avec un temps de réponse moyen inférieur à 200ms.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-12 lg:mt-0">
+                    <div class="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
+                        <div class="bg-gray-100 rounded-xl shadow-xl overflow-hidden p-6">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <div class="h-3 w-3 bg-red-500 rounded-full"></div>
+                                <div class="h-3 w-3 bg-yellow-500 rounded-full"></div>
+                                <div class="h-3 w-3 bg-green-500 rounded-full"></div>
+                                <div class="ml-2 text-sm text-gray-500">Exemple de requête API</div>
+                            </div>
+                            <pre class="bg-gray-800 rounded-lg p-4 text-sm text-green-400 overflow-x-auto">
+curl -X GET "https://api.LivraiCompare.dz/v1/rates" \
+-H "Authorization: Bearer YOUR_API_KEY" \
+-H "Content-Type: application/json" \
+-d '{
+  "origin": "Alger",
+  "destination": "Oran",
+  "weight": 2.5,
+  "dimensions": {
+    "length": 30,
+    "width": 20,
+    "height": 15
+  },
+  "value": 5000
+}'</pre>
+                            <div class="mt-4 text-sm text-gray-500">Réponse :</div>
+                            <pre class="bg-gray-800 rounded-lg p-4 text-sm text-blue-400 overflow-x-auto">
+{
+  "rates": [
+    {
+      "carrier": "Yalidine",
+      "service": "Standard",
+      "price": 600,
+      "currency": "DZD",
+      "delivery_time": {
+        "min": 24,
+        "max": 48,
+        "unit": "hours"
+      },
+      "reliability": 0.95
+    },
+    {
+      "carrier": "Temtem One",
+      "service": "Express",
+      "price": 750,
+      "currency": "DZD",
+      "delivery_time": {
+        "min": 12,
+        "max": 24,
+        "unit": "hours"
+      },
+      "reliability": 0.98
+    }
+  ]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Fonctionnalités -->
+    <div class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Fonctionnalités de l'API</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Notre API offre une gamme complète de fonctionnalités pour répondre à tous vos besoins de livraison.
+                </p>
+            </div>
+
+            <div class="mt-16">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-6 py-8">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-emerald-100 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-medium text-gray-900">Comparaison de tarifs</h3>
+                            </div>
+                            <div class="mt-4 text-base text-gray-500">
+                                Obtenez et comparez les tarifs de tous les transporteurs disponibles en Algérie en fonction de l'origine, de la destination et des caractéristiques du colis.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-6 py-8">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-emerald-100 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                    </svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-medium text-gray-900">Suivi de colis</h3>
+                            </div>
+                            <div class="mt-4 text-base text-gray-500">
+                                Suivez l'état et la localisation de vos colis en temps réel, quel que soit le transporteur utilisé, grâce à un identifiant de suivi unique.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-6 py-8">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-emerald-100 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-medium text-gray-900">Gestion des étiquettes</h3>
+                            </div>
+                            <div class="mt-4 text-base text-gray-500">
+                                Générez et imprimez des étiquettes d'expédition pour tous les transporteurs directement depuis votre application.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-6 py-8">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-emerald-100 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                    </svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-medium text-gray-900">Couverture géographique</h3>
+                            </div>
+                            <div class="mt-4 text-base text-gray-500">
+                                Vérifiez la disponibilité des services de livraison dans toutes les wilayas d'Algérie et obtenez des informations détaillées sur les zones desservies.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-6 py-8">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-emerald-100 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                                    </svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-medium text-gray-900">Statistiques et rapports</h3>
+                            </div>
+                            <div class="mt-4 text-base text-gray-500">
+                                Accédez à des statistiques détaillées sur vos expéditions, les performances des transporteurs et les économies réalisées.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-6 py-8">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-emerald-100 rounded-md p-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </div>
+                                <h3 class="ml-4 text-xl font-medium text-gray-900">Authentification sécurisée</h3>
+                            </div>
+                            <div class="mt-4 text-base text-gray-500">
+                                Profitez d'une authentification sécurisée par clé API et JWT pour protéger vos données et transactions.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Documentation -->
+    <div id="documentation" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Documentation de l'API</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Tout ce dont vous avez besoin pour commencer à utiliser notre API.
+                </p>
+            </div>
+
+            <div class="mt-12 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 bg-gray-50">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Authentification
+                    </h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                        Comment obtenir et utiliser votre clé API.
+                    </p>
+                </div>
+                <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+                    <p class="text-base text-gray-500 mb-4">
+                        Toutes les requêtes à l'API LivraiCompare nécessitent une clé API valide. Vous pouvez obtenir votre clé API en vous inscrivant sur notre portail développeur.
+                    </p>
+                    <p class="text-base text-gray-500 mb-4">
+                        Incluez votre clé API dans l'en-tête de chaque requête comme suit :
+                    </p>
+                    <pre class="bg-gray-800 rounded-lg p-4 text-sm text-green-400 overflow-x-auto">
+Authorization: Bearer YOUR_API_KEY</pre>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 bg-gray-50">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Endpoints principaux
+                    </h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                        Les points d'accès les plus utilisés de notre API.
+                    </p>
+                </div>
+                <div class="border-t border-gray-200">
+                    <dl>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                GET /v1/rates
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <p>Obtenir les tarifs de livraison pour une expédition spécifique.</p>
+                                <p class="mt-2 text-xs text-gray-500">Paramètres requis : origin, destination, weight</p>
+                                <p class="mt-2 text-xs text-gray-500">Paramètres optionnels : dimensions, value, service_type</p>
+                            </dd>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                GET /v1/carriers
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <p>Obtenir la liste de tous les transporteurs disponibles.</p>
+                                <p class="mt-2 text-xs text-gray-500">Paramètres optionnels : region, service_type</p>
+                            </dd>
+                        </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                GET /v1/tracking/{tracking_id}
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <p>Suivre un colis avec son identifiant de suivi.</p>
+                                <p class="mt-2 text-xs text-gray-500">Paramètres requis : tracking_id</p>
+                            </dd>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                POST /v1/shipments
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <p>Créer une nouvelle expédition.</p>
+                                <p class="mt-2 text-xs text-gray-500">Paramètres requis : carrier, service, origin, destination, package_details</p>
+                            </dd>
+                        </div>
+                        <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt class="text-sm font-medium text-gray-500">
+                                GET /v1/regions
+                            </dt>
+                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                <p>Obtenir la liste des régions et wilayas desservies.</p>
+                                <p class="mt-2 text-xs text-gray-500">Paramètres optionnels : carrier</p>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-emerald-600 hover:bg-emerald-700">
+                    Voir la documentation complète
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Tarification -->
+    <div id="pricing" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Plans et tarification</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Choisissez le plan qui correspond le mieux à vos besoins.
+                </p>
+            </div>
+
+            <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:grid-cols-3">
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Starter</h3>
+                        <p class="mt-4 text-sm text-gray-500">Idéal pour les petites entreprises et les startups.</p>
+                        <p class="mt-8">
+                            <span class="text-4xl font-extrabold text-gray-900">5 000 DZD</span>
+                            <span class="text-base font-medium text-gray-500">/mois</span>
+                        </p>
+                        <a href="#register" class="mt-8 block w-full bg-emerald-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-emerald-700">
+                            Commencer
+                        </a>
+                    </div>
+                    <div class="pt-6 pb-8 px-6">
+                        <h4 class="text-sm font-medium text-gray-900 tracking-wide uppercase">Ce qui est inclus</h4>
+                        <ul class="mt-6 space-y-4">
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">1 000 requêtes par mois</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Accès à tous les transporteurs</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Comparaison de tarifs</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Support par email</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Professional</h3>
+                        <p class="mt-4 text-sm text-gray-500">Pour les entreprises en pleine croissance.</p>
+                        <p class="mt-8">
+                            <span class="text-4xl font-extrabold text-gray-900">15 000 DZD</span>
+                            <span class="text-base font-medium text-gray-500">/mois</span>
+                        </p>
+                        <a href="#register" class="mt-8 block w-full bg-emerald-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-emerald-700">
+                            Commencer
+                        </a>
+                    </div>
+                    <div class="pt-6 pb-8 px-6">
+                        <h4 class="text-sm font-medium text-gray-900 tracking-wide uppercase">Ce qui est inclus</h4>
+                        <ul class="mt-6 space-y-4">
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">10 000 requêtes par mois</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Toutes les fonctionnalités Starter</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Suivi de colis</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Génération d'étiquettes</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Support prioritaire</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900">Enterprise</h3>
+                        <p class="mt-4 text-sm text-gray-500">Solutions personnalisées pour les grandes entreprises.</p>
+                        <p class="mt-8">
+                            <span class="text-4xl font-extrabold text-gray-900">Sur mesure</span>
+                        </p>
+                        <a href="#contact" class="mt-8 block w-full bg-emerald-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-emerald-700">
+                            Contactez-nous
+                        </a>
+                    </div>
+                    <div class="pt-6 pb-8 px-6">
+                        <h4 class="text-sm font-medium text-gray-900 tracking-wide uppercase">Ce qui est inclus</h4>
+                        <ul class="mt-6 space-y-4">
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Volume illimité de requêtes</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Toutes les fonctionnalités Professional</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">API personnalisée</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Intégration sur mesure</span>
+                            </li>
+                            <li class="flex space-x-3">
+                                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-sm text-gray-500">Support dédié 24/7</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section FAQ -->
+    <div class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Questions fréquentes</h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                    Vous avez des questions sur notre API ? Consultez nos réponses ci-dessous.
+                </p>
+            </div>
+            
+            <div class="mt-12 max-w-3xl mx-auto">
+                <dl class="space-y-6 divide-y divide-gray-200">
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">Comment puis-je obtenir une clé API ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Pour obtenir une clé API, vous devez créer un compte sur notre portail développeur et souscrire à l'un de nos plans. Une fois votre compte validé, vous pourrez générer votre clé API depuis votre tableau de bord.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">Quelles sont les limites de requêtes ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Les limites de requêtes dépendent du plan que vous avez choisi. Le plan Starter permet 1 000 requêtes par mois, le plan Professional 10 000 requêtes par mois, et le plan Enterprise offre un volume illimité. Si vous dépassez votre limite, des frais supplémentaires peuvent s'appliquer.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">L'API est-elle disponible pour tous les transporteurs en Algérie ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Oui, notre API couvre tous les principaux transporteurs en Algérie, y compris Yalidine, Temtem One, Easy Relay, et bien d'autres. Nous ajoutons régulièrement de nouveaux transporteurs à notre réseau pour offrir la couverture la plus complète possible.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">Comment puis-je intégrer l'API à mon site web ou application ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Notre API RESTful est facile à intégrer avec n'importe quel langage de programmation ou plateforme. Nous fournissons des bibliothèques clientes pour PHP, JavaScript, Python et Java, ainsi que des exemples de code détaillés dans notre documentation. Si vous avez besoin d'aide pour l'intégration, notre équipe de support technique est disponible pour vous assister.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">L'API est-elle sécurisée ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Absolument. Toutes les communications avec notre API sont sécurisées via HTTPS/TLS. Nous utilisons une authentification par clé API et JWT pour garantir que seuls les utilisateurs autorisés peuvent accéder à vos données. De plus, nous effectuons régulièrement des audits de sécurité pour maintenir les plus hauts standards de protection.
+                            </p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section CTA -->
+    <div id="register" class="bg-emerald-700">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+            <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                <span class="block">Prêt à commencer ?</span>
+                <span class="block text-emerald-200">Créez votre compte développeur dès aujourd'hui.</span>
+            </h2>
+            <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+                <div class="inline-flex rounded-md shadow">
+                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-emerald-600 bg-white hover:bg-emerald-50">
+                        Créer un compte
+                    </a>
+                </div>
+                <div class="ml-3 inline-flex rounded-md shadow">
+                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-500">
+                        Contacter l'équipe commerciale
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript pour la section FAQ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des questions/réponses de la FAQ
+    const faqButtons = document.querySelectorAll('.faq-section button');
+    
+    faqButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const answer = button.parentNode.nextElementSibling;
+            const icon = button.querySelector('svg');
+            
+            // Vérifier si la réponse est visible
+            const isExpanded = answer.classList.contains('block');
+            
+            // Masquer toutes les réponses et réinitialiser les icônes
+            document.querySelectorAll('.faq-section dd').forEach(dd => {
+                dd.classList.remove('block');
+                dd.classList.add('hidden');
+            });
+            
+            document.querySelectorAll('.faq-section svg').forEach(svg => {
+                svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />';
+            });
+            
+            // Si la réponse était cachée, l'afficher
+            if (!isExpanded) {
+                answer.classList.remove('hidden');
+                answer.classList.add('block');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" transform="rotate(180 12 12)" />';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

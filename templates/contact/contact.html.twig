@@ -1,0 +1,376 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-nous - LivraiCompare Algérie{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-white">
+    <!-- En-tête -->
+    <div class="relative bg-emerald-700">
+        <div class="absolute inset-0">
+            <img src="{{ asset('images/bg.png') }}" alt="Service client" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-b from-emerald-800 to-emerald-700 mix-blend-multiply"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">Contactez-nous</h1>
+            <p class="mt-6 max-w-3xl text-xl text-emerald-50">Notre équipe est à votre disposition pour répondre à toutes vos questions et vous accompagner dans l'optimisation de vos livraisons.</p>
+        </div>
+    </div>
+
+    <!-- Section principale -->
+    <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-24 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8">
+            <!-- Informations de contact -->
+            <div class="space-y-8">
+                <h2 class="text-2xl font-bold text-gray-900">Nos coordonnées</h2>
+                
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-emerald-500 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Téléphone</h3>
+                        <p class="mt-1 text-gray-500">+213 (0) 23 45 67 89</p>
+                        <p class="mt-1 text-gray-500">Du dimanche au jeudi, 9h-17h</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-emerald-500 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Email</h3>
+                        <p class="mt-1 text-gray-500">contact@LivraiCompare.dz</p>
+                        <p class="mt-1 text-gray-500">support@LivraiCompare.dz</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-emerald-500 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Adresse</h3>
+                        <p class="mt-1 text-gray-500">Centre d'affaires Cité Mokhtar Zerhouni</p>
+                        <p class="mt-1 text-gray-500">Mohammadia, Alger, Algérie</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-emerald-500 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Horaires</h3>
+                        <p class="mt-1 text-gray-500">Dimanche - Jeudi: 9h - 17h</p>
+                        <p class="mt-1 text-gray-500">Vendredi - Samedi: Fermé</p>
+                    </div>
+                </div>
+
+                <!-- Réseaux sociaux -->
+                <div class="mt-8">
+                    <h3 class="text-lg font-medium text-gray-900">Suivez-nous</h3>
+                    <div class="flex space-x-6 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-emerald-500">
+                            <span class="sr-only">Facebook</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+
+                        <a href="#" class="text-gray-400 hover:text-emerald-500">
+                            <span class="sr-only">Instagram</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+
+                        <a href="#" class="text-gray-400 hover:text-emerald-500">
+                            <span class="sr-only">Twitter</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                            </svg>
+                        </a>
+
+                        <a href="#" class="text-gray-400 hover:text-emerald-500">
+                            <span class="sr-only">LinkedIn</span>
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire de contact -->
+            <div class="lg:col-span-2 bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Envoyez-nous un message</h2>
+                
+                <form action="" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                    <div class="sm:col-span-2">
+                        <label for="subject" class="block text-sm font-medium text-gray-700">Sujet</label>
+                        <div class="mt-1">
+                            <select id="subject" name="subject" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
+                                <option value="">Sélectionnez un sujet</option>
+                                <option value="question">Question générale</option>
+                                <option value="support">Support technique</option>
+                                <option value="partnership">Partenariat</option>
+                                <option value="billing">Facturation</option>
+                                <option value="other">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="first-name" class="block text-sm font-medium text-gray-700">Prénom</label>
+                        <div class="mt-1">
+                            <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="last-name" class="block text-sm font-medium text-gray-700">Nom</label>
+                        <div class="mt-1">
+                            <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <label for="company" class="block text-sm font-medium text-gray-700">Entreprise</label>
+                        <div class="mt-1">
+                            <input type="text" name="company" id="company" autocomplete="organization" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <div class="mt-1">
+                            <input id="email" name="email" type="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Téléphone</label>
+                        <div class="mt-1">
+                            <input type="text" name="phone" id="phone" autocomplete="tel" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <div class="mt-1">
+                            <textarea id="message" name="message" rows="6" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <input id="privacy" name="privacy" type="checkbox" class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-gray-500">
+                                    En soumettant ce formulaire, j'accepte que mes données personnelles soient traitées conformément à la <a href="#" class="font-medium text-emerald-600 hover:text-emerald-500">politique de confidentialité</a>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sm:col-span-2">
+                        <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
+                            Envoyer le message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Carte -->
+    <div class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Où nous trouver</h2>
+                <p class="mt-4 text-lg text-gray-500">Venez nous rendre visite dans nos bureaux à Alger</p>
+            </div>
+            
+            <div class="mt-12 bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="h-96 w-full">
+                    <!-- Remplacez par votre iframe Google Maps ou OpenStreetMap -->
+                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                        <p class="text-gray-500">Carte interactive - Remplacez par votre iframe de carte</p>
+                        <!-- Exemple: <iframe src="https://www.google.com/maps/embed?..." width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section FAQ -->
+    <div class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900">Questions fréquentes</h2>
+                <p class="mt-4 text-lg text-gray-500">Vous ne trouvez pas la réponse à votre question ? Contactez-nous directement.</p>
+            </div>
+            
+            <div class="mt-12 max-w-3xl mx-auto">
+                <dl class="space-y-6 divide-y divide-gray-200">
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">Comment puis-je obtenir un devis personnalisé ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Pour obtenir un devis personnalisé, vous pouvez utiliser notre formulaire de contact en sélectionnant "Devis" comme sujet, ou nous appeler directement au +213 (0) 23 45 67 89. Un conseiller vous contactera sous 24h pour discuter de vos besoins spécifiques.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">Quels sont les délais de réponse à mes demandes ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Nous nous engageons à répondre à toutes les demandes dans un délai de 24 heures ouvrables. Pour les questions urgentes, nous vous recommandons de nous contacter par téléphone pour une assistance immédiate.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">Comment puis-je devenir partenaire de LivraiCompare ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Si vous êtes un transporteur ou une entreprise souhaitant établir un partenariat avec LivraiCompare, veuillez nous contacter via le formulaire en sélectionnant "Partenariat" comme sujet. Notre équipe de développement commercial vous contactera pour discuter des opportunités de collaboration.
+                            </p>
+                        </dd>
+                    </div>
+
+                    <div class="pt-6 faq-section">
+                        <dt class="text-lg">
+                            <button type="button" class="text-left w-full flex justify-between items-start text-gray-900 focus:outline-none">
+                                <span class="font-medium">Comment puis-je signaler un problème technique ?</span>
+                                <span class="ml-6 h-7 flex items-center">
+                                    <svg class="h-6 w-6 text-emerald-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </dt>
+                        <dd class="mt-2 pr-12 hidden">
+                            <p class="text-base text-gray-500">
+                                Pour signaler un problème technique, veuillez utiliser notre formulaire de contact en sélectionnant "Support technique" comme sujet. Décrivez le problème rencontré avec le plus de détails possible (captures d'écran, étapes pour reproduire le problème, etc.) pour nous permettre de le résoudre rapidement.
+                            </p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section CTA -->
+    <div class="bg-emerald-700">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+            <div class="text-center lg:text-left lg:flex lg:items-center lg:justify-between">
+                <div class="lg:max-w-2xl">
+                    <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                        <span class="block">Besoin d'une réponse rapide ?</span>
+                        <span class="block text-emerald-200">Notre équipe est disponible par téléphone.</span>
+                    </h2>
+                </div>
+                <div class="mt-8 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3 lg:mt-0 lg:flex-shrink-0 lg:ml-4">
+                    <a href="tel:+21323456789" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-emerald-700 bg-white hover:bg-emerald-50 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                        Appelez-nous
+                    </a>
+                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-500 shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                        </svg>
+                        Envoyez un email
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript pour la section FAQ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion des questions/réponses de la FAQ
+    const faqButtons = document.querySelectorAll('.faq-section button');
+    
+    faqButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const answer = button.parentNode.nextElementSibling;
+            const icon = button.querySelector('svg');
+            
+            // Vérifier si la réponse est visible
+            const isExpanded = answer.classList.contains('block');
+            
+            // Masquer toutes les réponses et réinitialiser les icônes
+            document.querySelectorAll('.faq-section dd').forEach(dd => {
+                dd.classList.remove('block');
+                dd.classList.add('hidden');
+            });
+            
+            document.querySelectorAll('.faq-section svg').forEach(svg => {
+                svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />';
+            });
+            
+            // Si la réponse était cachée, l'afficher
+            if (!isExpanded) {
+                answer.classList.remove('hidden');
+                answer.classList.add('block');
+                icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" transform="rotate(180 12 12)" />';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

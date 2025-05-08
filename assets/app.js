@@ -1,5 +1,4 @@
-import './bootstrap.js';
-/*
+import './js/tabs';/*
  * Welcome to your app's main JavaScript file!
  *
  * We recommend including the built version of this JavaScript file

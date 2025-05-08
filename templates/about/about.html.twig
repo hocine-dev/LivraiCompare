@@ -1,0 +1,360 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos - LivraiCompare Algérie
+{% endblock %}
+
+{% block body %}
+	<div
+		class="min-h-screen bg-white">
+		<!-- En-tête avec image de fond -->
+		<div class="relative bg-emerald-700">
+			<div class="absolute inset-0">
+				<img src="{{ asset('images/bg.png') }}" alt="Livraison en Algérie" class="w-full h-full object-cover opacity-20">
+				<div class="absolute inset-0 bg-gradient-to-b from-emerald-800 to-emerald-700 mix-blend-multiply"></div>
+			</div>
+			<div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+				<h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">À propos de LivraiCompare</h1>
+				<p class="mt-6 max-w-3xl text-xl text-emerald-50">Découvrez comment nous révolutionnons la livraison en Algérie grâce à notre plateforme de comparaison innovante.</p>
+			</div>
+		</div>
+
+		<!-- Section Notre Mission -->
+		<div class="bg-white py-16 sm:py-24">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="lg:grid lg:grid-cols-2 lg:gap-16">
+					<div>
+						<h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Notre mission</h2>
+						<p class="mt-4 text-lg text-gray-500">
+							Chez LivraiCompare Algérie, notre mission est de simplifier et d'optimiser le processus de livraison pour les entreprises et les particuliers à travers tout le pays.
+						</p>
+						<p class="mt-4 text-lg text-gray-500">
+							Nous croyons que chaque Algérien mérite un service de livraison fiable, transparent et abordable. C'est pourquoi nous avons créé une plateforme qui permet de comparer facilement les tarifs et services des principaux transporteurs du pays.
+						</p>
+						<div class="mt-8">
+							<div class="flex items-center">
+								<div class="flex-shrink-0">
+									<i class="fas fa-check-circle text-emerald-500 text-xl"></i>
+								</div>
+								<div class="ml-4">
+									<h3 class="text-lg font-medium text-gray-900">Transparence</h3>
+									<p class="mt-1 text-gray-500">Nous affichons tous les frais sans coûts cachés.</p>
+								</div>
+							</div>
+							<div class="flex items-center mt-5">
+								<div class="flex-shrink-0">
+									<i class="fas fa-check-circle text-emerald-500 text-xl"></i>
+								</div>
+								<div class="ml-4">
+									<h3 class="text-lg font-medium text-gray-900">Économies</h3>
+									<p class="mt-1 text-gray-500">Nous vous aidons à réduire vos coûts de livraison.</p>
+								</div>
+							</div>
+							<div class="flex items-center mt-5">
+								<div class="flex-shrink-0">
+									<i class="fas fa-check-circle text-emerald-500 text-xl"></i>
+								</div>
+								<div class="ml-4">
+									<h3 class="text-lg font-medium text-gray-900">Fiabilité</h3>
+									<p class="mt-1 text-gray-500">Nous évaluons la performance des transporteurs.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mt-10 lg:mt-0">
+						<div class="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
+							<img src="{{ asset('images/missions.png') }}" alt="Notre mission" class="w-full h-full object-center object-cover">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Section Valeur Ajoutée -->
+		<div class="bg-white py-16 sm:py-24">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center">
+					<h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Notre valeur ajoutée</h2>
+					<p class="mt-4 max-w-2xl text-lg text-gray-500 mx-auto">
+						Découvrez comment LivraiCompare transforme l'expérience de livraison en Algérie.
+					</p>
+				</div>
+
+				<div class="mt-16">
+					<dl
+						class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+						<!-- Économies substantielles -->
+						<div class="relative">
+							<dt>
+								<div class="absolute flex items-center justify-center h-20 w-20 rounded-md bg-emerald-50 text-emerald-600">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewbox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+										<circle cx="32" cy="32" r="28" fill="#E6F7F0"/>
+										<path d="M32 16V48" stroke-linecap="round"/>
+										<path d="M40 22H28C24.6863 22 22 24.6863 22 28C22 31.3137 24.6863 34 28 34H36C39.3137 34 42 36.6863 42 40C42 43.3137 39.3137 46 36 46H24" stroke-linecap="round"/>
+									</svg>
+								</div>
+								<p class="ml-24 text-lg leading-6 font-medium text-gray-900">Économies substantielles</p>
+							</dt>
+							<dd class="mt-2 ml-24 text-base text-gray-500">
+								Nos utilisateurs économisent en moyenne 25% sur leurs frais de livraison grâce à notre comparateur. Pour une entreprise expédiant 100 colis par mois, cela représente une économie annuelle de plus de 200 000 DZD.
+							</dd>
+						</div>
+
+						<!-- Gain de temps considérable -->
+						<div class="relative">
+							<dt>
+								<div class="absolute flex items-center justify-center h-20 w-20 rounded-md bg-emerald-50 text-emerald-600">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewbox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+										<circle cx="32" cy="32" r="24" fill="#E6F7F0"/>
+										<circle cx="32" cy="32" r="24"/>
+										<path d="M32 20V32L40 40" stroke-linecap="round" stroke-linejoin="round"/>
+										<path d="M16 8L20 12" stroke-linecap="round"/>
+										<path d="M48 8L44 12" stroke-linecap="round"/>
+										<path d="M32 4V8" stroke-linecap="round"/>
+										<path d="M56 32H52" stroke-linecap="round"/>
+										<path d="M12 32H8" stroke-linecap="round"/>
+									</svg>
+								</div>
+								<p class="ml-24 text-lg leading-6 font-medium text-gray-900">Gain de temps considérable</p>
+							</dt>
+							<dd class="mt-2 ml-24 text-base text-gray-500">
+								Fini les appels téléphoniques et les recherches interminables. Notre plateforme vous permet de comparer toutes les options en quelques clics, réduisant le temps consacré à la logistique de 75%.
+							</dd>
+						</div>
+
+						<!-- Satisfaction client améliorée -->
+						<div class="relative">
+							<dt>
+								<div class="absolute flex items-center justify-center h-20 w-20 rounded-md bg-emerald-50 text-emerald-600">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewbox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+										<circle cx="32" cy="32" r="24" fill="#E6F7F0"/>
+										<circle cx="32" cy="32" r="24"/>
+										<path d="M22 36C22 36 26 42 32 42C38 42 42 36 42 36" stroke-linecap="round"/>
+										<circle cx="24" cy="26" r="2" fill="currentColor"/>
+										<circle cx="40" cy="26" r="2" fill="currentColor"/>
+									</svg>
+								</div>
+								<p class="ml-24 text-lg leading-6 font-medium text-gray-900">Satisfaction client améliorée</p>
+							</dt>
+							<dd class="mt-2 ml-24 text-base text-gray-500">
+								En choisissant les transporteurs les plus fiables et les plus rapides, vous améliorez l'expérience de vos clients et augmentez leur fidélité. Nos utilisateurs rapportent une augmentation de 30% de la satisfaction client.
+							</dd>
+						</div>
+
+						<!-- Sécurité et fiabilité -->
+						<div class="relative">
+							<dt>
+								<div class="absolute flex items-center justify-center h-20 w-20 rounded-md bg-emerald-50 text-emerald-600">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewbox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+										<path d="M32 8L8 20V28C8 41.255 18.745 52 32 52C45.255 52 56 41.255 56 28V20L32 8Z" fill="#E6F7F0"/>
+										<path d="M32 8L8 20V28C8 41.255 18.745 52 32 52C45.255 52 56 41.255 56 28V20L32 8Z"/>
+										<path d="M24 32L30 38L40 26" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+								</div>
+								<p class="ml-24 text-lg leading-6 font-medium text-gray-900">Sécurité et fiabilité</p>
+							</dt>
+							<dd class="mt-2 ml-24 text-base text-gray-500">
+								Nous évaluons rigoureusement chaque transporteur et mettons à jour nos données quotidiennement pour garantir que vous disposez toujours des informations les plus précises et fiables.
+							</dd>
+						</div>
+
+						<!-- Ajout de deux nouvelles valeurs ajoutées avec illustrations -->
+
+						<!-- API fournie au développeur -->
+						<div class="relative">
+							<dt>
+								<div
+									class="absolute flex items-center justify-center h-20 w-20 rounded-md bg-emerald-50 text-emerald-600">
+									<!-- Icône représentant une API / code -->
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 18l6-6-6-6M8 6l-6 6 6 6"/>
+									</svg>
+								</div>
+								<p class="ml-24 text-lg leading-6 font-medium text-gray-900">API fournie au développeur</p>
+							</dt>
+							<dd class="mt-2 ml-24 text-base text-gray-500">
+								ShipCompare met à disposition une API complète permettant aux développeurs d’intégrer la comparaison des frais de livraison directement dans leurs sites ou applications.
+							</dd>
+						</div>
+
+
+						<!-- Couverture nationale complète -->
+						<div class="relative">
+							<dt>
+								<div class="absolute flex items-center justify-center h-20 w-20 rounded-md bg-emerald-50 text-emerald-600">
+									<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewbox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+										<path d="M32 56C45.2548 56 56 45.2548 56 32C56 18.7452 45.2548 8 32 8C18.7452 8 8 18.7452 8 32C8 45.2548 18.7452 56 32 56Z" fill="#E6F7F0"/>
+										<path d="M32 56C45.2548 56 56 45.2548 56 32C56 18.7452 45.2548 8 32 8C18.7452 8 8 18.7452 8 32C8 45.2548 18.7452 56 32 56Z"/>
+										<path d="M32 8V56" stroke-linecap="round"/>
+										<path d="M8 32H56" stroke-linecap="round"/>
+										<path d="M12 20H52" stroke-linecap="round"/>
+										<path d="M12 44H52" stroke-linecap="round"/>
+										<path d="M32 8C38.6274 8 44 18.7452 44 32C44 45.2548 38.6274 56 32 56C25.3726 56 20 45.2548 20 32C20 18.7452 25.3726 8 32 8Z"/>
+										<circle cx="32" cy="32" r="4" fill="currentColor"/>
+									</svg>
+								</div>
+								<p class="ml-24 text-lg leading-6 font-medium text-gray-900">Couverture nationale complète</p>
+							</dt>
+							<dd class="mt-2 ml-24 text-base text-gray-500">
+								Notre service couvre l'ensemble des 58 wilayas d'Algérie, y compris les zones les plus reculées, vous permettant d'atteindre tous vos clients où qu'ils soient.
+							</dd>
+						</div>
+					</dl>
+				</div>
+			</div>
+		</div>
+
+		<!-- Section Témoignages -->
+		<div class="bg-gray-50 py-16 sm:py-24">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="text-center">
+					<h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Ce que disent nos utilisateurs</h2>
+					<p class="mt-4 max-w-2xl text-lg text-gray-500 mx-auto">
+						Découvrez comment LivraiCompare a transformé la gestion des livraisons pour nos utilisateurs.
+					</p>
+				</div>
+
+				<div
+					class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+					<!-- Témoignage 1 -->
+					<div class="bg-white overflow-hidden shadow rounded-lg">
+						<div class="p-6">
+							<div class="flex items-center">
+								<div class="flex-shrink-0">
+									<img class="h-12 w-12 rounded-full" src="{{ asset('images/t2.png') }}" alt="Témoignage">
+								</div>
+								<div class="ml-4">
+									<h3 class="text-lg font-medium text-gray-900">Ahmed Zeyan</h3>
+									<p class="text-sm text-gray-500">E-commerçant, Alger</p>
+								</div>
+							</div>
+							<div class="mt-4 text-gray-500">
+								<p class="italic">
+									"Depuis que j'utilise LivraiCompare, j'économise plus de 30% sur mes frais de livraison. C'est un outil indispensable pour mon e-commerce qui expédie plus de 200 colis par mois à travers l'Algérie."
+								</p>
+							</div>
+							<div class="mt-4 flex text-yellow-400">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div>
+					</div>
+
+					<!-- Témoignage 2 -->
+					<div class="bg-white overflow-hidden shadow rounded-lg">
+						<div class="p-6">
+							<div class="flex items-center">
+								<div class="flex-shrink-0">
+									<img class="h-12 w-12 rounded-full" src="{{ asset('images/t1.png') }}" alt="Témoignage">
+								</div>
+								<div class="ml-4">
+									<h3 class="text-lg font-medium text-gray-900">Samira Hadj</h3>
+									<p class="text-sm text-gray-500">Responsable logistique, Oran</p>
+								</div>
+							</div>
+							<div class="mt-4 text-gray-500">
+								<p class="italic">
+									"La plateforme est incroyablement intuitive et nous a permis d'optimiser toute notre chaîne logistique. cette application nous aide à prendre des décisions basées sur des données concrètes."
+								</p>
+							</div>
+							<div class="mt-4 flex text-yellow-400">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star-half-alt"></i>
+							</div>
+						</div>
+					</div>
+
+					<!-- Témoignage 3 -->
+					<div class="bg-white overflow-hidden shadow rounded-lg">
+						<div class="p-6">
+							<div class="flex items-center">
+								<div class="flex-shrink-0">
+									<img class="h-12 w-12 rounded-full" src="{{ asset('images/t3.png') }}" alt="Témoignage">
+								</div>
+								<div class="ml-4">
+									<h3 class="text-lg font-medium text-gray-900">Karim Meziane</h3>
+									<p class="text-sm text-gray-500">Artisan, Constantine</p>
+								</div>
+							</div>
+							<div class="mt-4 text-gray-500">
+								<p class="italic">
+									"En tant que petit artisan, je n'avais pas les moyens de négocier des tarifs avantageux avec les transporteurs. Grâce à LivraiCompare, j'accède aux mêmes conditions que les grandes entreprises."
+								</p>
+							</div>
+							<div class="mt-4 flex text-yellow-400">
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+								<i class="fas fa-star"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<!-- Section CTA Modernisée -->
+<div class="bg-white py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">
+      Comparez et choisissez votre solution d'envoi
+    </h2>
+    
+    <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:justify-between">
+      <!-- Bouton Comparer -->
+      <a href="/#compare" class="group relative overflow-hidden rounded-lg bg-emerald-600 px-6 py-4 text-white shadow-md transition-all duration-300 hover:bg-emerald-500 hover:shadow-lg">
+        <div class="flex items-center">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 group-hover:bg-emerald-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
+            </svg>
+          </div>
+          <div class="ml-4">
+            <p class="font-medium">Comparer vos frais de livraison</p>
+            <p class="text-sm text-emerald-100">Trouvez la meilleure option</p>
+          </div>
+        </div>
+      </a>
+      
+      <!-- Bouton Nous contacter -->
+      <a href="/" class="group relative overflow-hidden rounded-lg bg-emerald-600 px-6 py-4 text-white shadow-md transition-all duration-300 hover:bg-emerald-500 hover:shadow-lg">
+        <div class="flex items-center">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 group-hover:bg-emerald-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-4">
+            <p class="font-medium">Nous contacter</p>
+            <p class="text-sm text-emerald-100">Besoin d'aide ?</p>
+          </div>
+        </div>
+      </a>
+      
+      <!-- Bouton Utiliser notre API -->
+      <a href="/" class="group relative overflow-hidden rounded-lg bg-emerald-600 px-6 py-4 text-white shadow-md transition-all duration-300 hover:bg-emerald-500 hover:shadow-lg">
+        <div class="flex items-center">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 group-hover:bg-emerald-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-4">
+            <p class="font-medium">Utiliser notre API</p>
+            <p class="text-sm text-emerald-100">Pour les développeurs</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+	{% endblock %}
