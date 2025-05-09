@@ -1,0 +1,136 @@
+<div class="grid gap-8 md:grid-cols-2">
+
+    <!-- Origine Section -->
+    <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 space-y-4 transition-all duration-300 hover:shadow-md">
+        <div class="flex items-center gap-2 mb-2 text-emerald-700">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3 class="font-semibold">Point de départ</h3>
+        </div>
+
+        <!-- Wilaya Origine -->
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <label for="origin" class="text-sm font-medium text-gray-700 flex items-center gap-1">
+                    <span>Wilaya d'origine</span>
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <select id="origin" name="origin" class="ts-select">
+                        <option value="">Sélectionnez une wilaya ou tapez pour chercher</option>
+                        {% for wilaya in wilayas %}
+                            {% set id = loop.index %}
+                            <option value="{{ id }}" data-name="{{ wilaya }}">{{ wilaya }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commune Origine -->
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <label for="originc" class="text-sm font-medium text-gray-700 flex items-center gap-1">
+                    <span>Commune d'origine</span>
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <select id="originc" name="originc" class="ts-select">
+                        <option value="">Sélectionnez une Commune ou tapez pour chercher</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destination Section -->
+    <div class="bg-gray-50 p-5 rounded-xl border border-gray-100 space-y-4 transition-all duration-300 hover:shadow-md">
+        <div class="flex items-center gap-2 mb-2 text-emerald-700">
+            <i class="fas fa-flag-checkered"></i>
+            <h3 class="font-semibold">Destination</h3>
+        </div>
+
+        <!-- Wilaya Destination -->
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <label for="destination" class="text-sm font-medium text-gray-700 flex items-center gap-1">
+                    <span>Wilaya de destination</span>
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <select id="destination" name="destination" class="ts-select">
+                        <option value="">Sélectionnez une wilaya</option>
+                        {% for wilaya in wilayas %}
+                            {% set id = loop.index %}
+                            <option value="{{ id }}" data-name="{{ wilaya }}">{{ wilaya }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commune Destination -->
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <label for="destinationc" class="text-sm font-medium text-gray-700 flex items-center gap-1">
+                    <span>Commune de destination</span>
+                    <span class="text-red-500">*</span>
+                </label>
+                <div class="relative">
+                    <select id="destinationc" name="destinationc" class="ts-select">
+                        <option value="">Sélectionnez une Commune</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tom Select CSS & JS -->
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const originTS       = new TomSelect('#origin',      { create: false, placeholder: 'Sélectionnez une wilaya ou tapez pour chercher' });
+    const origincTS      = new TomSelect('#originc',     { create: false, placeholder: 'Sélectionnez une Commune ou tapez pour chercher' });
+    const destinationTS  = new TomSelect('#destination', { create: false, placeholder: 'Sélectionnez une wilaya' });
+    const destinationcTS = new TomSelect('#destinationc',{ create: false, placeholder: 'Sélectionnez une Commune' });
+
+    function loadCommunes(wilayaId, tsInstance) {
+        tsInstance.clearOptions();             // on vide juste
+        if (!wilayaId) {
+            tsInstance.refreshOptions(false);
+            return;
+        }
+
+        fetch(`http://127.0.0.1:8000/get-communes/${wilayaId}`)
+            .then(res => res.ok ? res.json() : Promise.reject(res.statusText))
+            .then(communes => {
+                communes.forEach(c => tsInstance.addOption({ value: c.id, text: c.name }));
+                tsInstance.refreshOptions(false);
+            })
+            .catch(err => {
+                console.error('Erreur chargement communes :', err);
+                alert('Échec du chargement des communes.');
+            });
+    }
+
+    originTS.on('change',      wilayaId => loadCommunes(wilayaId, origincTS));
+    destinationTS.on('change', wilayaId => loadCommunes(wilayaId, destinationcTS));
+});
+</script>
+
+
+<style>
+/* Garde tes classes utilitaires Tailwind pour Tom Select */
+.ts-control {
+    @apply pl-4 pr-10 py-3 rounded-lg border border-gray-200 bg-white text-gray-700 w-full;
+}
+.ts-dropdown {
+    @apply rounded-lg border border-gray-200 shadow-lg;
+}
+.ts-dropdown .active {
+    @apply bg-emerald-50 text-emerald-700;
+}
+</style>
