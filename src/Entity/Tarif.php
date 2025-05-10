@@ -59,5 +59,21 @@ class Tarif
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Societe $societe;
 
-    // Ajoute les getters & setters si nécessaire
+    public function getTarif(): float
+    {
+        return $this->tarif;
+    }
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private ?int $delaiHeures = null;
+
+    public function getDelaiHeures(): ?int
+    {
+        return $this->delaiHeures;
+    }
+
+public function getSociete(): Societe
+{
+    return $this->societe;
+}
 }

@@ -30,4 +30,18 @@ class Societe
     {
         $this->nom = $nom;
     }
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+private ?string $siteWeb = null;
+
+public function getSiteWeb(): ?string
+{
+    return $this->siteWeb;
+}
+
+public function setSiteWeb(?string $siteWeb): void
+{
+    $this->siteWeb = $siteWeb;
+}
+
 }
