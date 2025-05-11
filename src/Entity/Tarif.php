@@ -6,11 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'tarif')]
-#[ORM\UniqueConstraint(columns: [
-    'origine_wilaya_id', 'origine_commune_id',
-    'destination_wilaya_id', 'destination_commune_id',
-    'mode', 'urgence', 'poids_min', 'poids_max', 'societe_id'
-])]
+#[ORM\UniqueConstraint(columns: ['origine_wilaya_id', 'destination_wilaya_id', 'societe_id'])]
 class Tarif
 {
     #[ORM\Id]
@@ -22,58 +18,63 @@ class Tarif
     #[ORM\JoinColumn(nullable: false, onDelete: 'RESTRICT')]
     private Wilaya $origineWilaya;
 
-    #[ORM\ManyToOne(targetEntity: Commune::class)]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
-    private ?Commune $origineCommune = null;
-
     #[ORM\ManyToOne(targetEntity: Wilaya::class)]
     #[ORM\JoinColumn(nullable: false, onDelete: 'RESTRICT')]
     private Wilaya $destinationWilaya;
 
-    #[ORM\ManyToOne(targetEntity: Commune::class)]
-    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
-    private ?Commune $destinationCommune = null;
-
-    #[ORM\Column(type: 'string', options: ['default' => 'domicile'])]
-    private string $mode;
-
-    #[ORM\Column(type: 'string', options: ['default' => 'standard'])]
-    private string $urgence;
-
-    #[ORM\Column(type: 'decimal', precision: 6, scale: 2)]
-    private float $poidsMin;
-
-    #[ORM\Column(type: 'decimal', precision: 6, scale: 2)]
-    private float $poidsMax;
-
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $prixColisMin;
-
-    #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
-    private float $prixColisMax;
+    #[ORM\ManyToOne(targetEntity: Societe::class)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    private Societe $societe;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private float $tarif;
 
-    #[ORM\ManyToOne(targetEntity: Societe::class)]
-    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
-    private Societe $societe;
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getOrigineWilaya(): Wilaya
+    {
+        return $this->origineWilaya;
+    }
+
+    public function setOrigineWilaya(Wilaya $wilaya): self
+    {
+        $this->origineWilaya = $wilaya;
+        return $this;
+    }
+
+    public function getDestinationWilaya(): Wilaya
+    {
+        return $this->destinationWilaya;
+    }
+
+    public function setDestinationWilaya(Wilaya $wilaya): self
+    {
+        $this->destinationWilaya = $wilaya;
+        return $this;
+    }
+
+    public function getSociete(): Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(Societe $societe): self
+    {
+        $this->societe = $societe;
+        return $this;
+    }
 
     public function getTarif(): float
     {
         return $this->tarif;
     }
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private ?int $delaiHeures = null;
-
-    public function getDelaiHeures(): ?int
+    public function setTarif(float $tarif): self
     {
-        return $this->delaiHeures;
+        $this->tarif = $tarif;
+        return $this;
     }
-
-public function getSociete(): Societe
-{
-    return $this->societe;
-}
 }

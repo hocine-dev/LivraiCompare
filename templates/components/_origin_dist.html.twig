@@ -37,6 +37,8 @@
                     <select id="originc" name="originc" class="ts-select">
                         <option value="">Sélectionnez une Commune ou tapez pour chercher</option>
                     </select>
+                                        <input type="hidden" id="zonec" name="zonec" value="">
+
                 </div>
             </div>
         </div>
@@ -79,6 +81,7 @@
                     <select id="destinationc" name="destinationc" class="ts-select">
                         <option value="">Sélectionnez une Commune</option>
                     </select>
+                    <input type="hidden" id="zoned" name="zoned" value="">
                 </div>
             </div>
         </div>
@@ -94,11 +97,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     const originTS       = new TomSelect('#origin',      { create: false, placeholder: 'Sélectionnez une wilaya ou tapez pour chercher' });
     const origincTS      = new TomSelect('#originc',     { create: false, placeholder: 'Sélectionnez une Commune ou tapez pour chercher' });
-    const destinationTS  = new TomSelect('#destination', { create: false, placeholder: 'Sélectionnez une wilaya' });
-    const destinationcTS = new TomSelect('#destinationc',{ create: false, placeholder: 'Sélectionnez une Commune' });
+    const destinationTS  = new TomSelect('#destination', { create: false, placeholder: 'Sélectionnez une wilaya ou tapez pour chercher' });
+    const destinationcTS = new TomSelect('#destinationc',{ create: false, placeholder: 'Sélectionnez une Commune ou tapez pour chercher' });
+    const zonec = document.getElementById('zonec');
+    const zoned = document.getElementById('zoned');
+    
+    // Disable commune fields initially
+    origincTS.disable();
+    destinationcTS.disable();
 
     function loadCommunes(wilayaId, tsInstance) {
-        tsInstance.clearOptions();             // on vide juste
+        tsInstance.clearOptions(); // Clear options
+        tsInstance.disable();      // Disable the field while loading
+
         if (!wilayaId) {
             tsInstance.refreshOptions(false);
             return;
@@ -107,12 +118,30 @@ document.addEventListener('DOMContentLoaded', function() {
         fetch(`http://127.0.0.1:8000/get-communes/${wilayaId}`)
             .then(res => res.ok ? res.json() : Promise.reject(res.statusText))
             .then(communes => {
-                communes.forEach(c => tsInstance.addOption({ value: c.id, text: c.name }));
-                tsInstance.refreshOptions(false);
+            communes.forEach(c => tsInstance.addOption({ value: c.id, text: c.name, zone: c.zone }));
+            tsInstance.refreshOptions(false);
+            tsInstance.enable();
+
+            // Set the zone value when a commune is selected
+            if (tsInstance === origincTS) {
+                tsInstance.on('change', communeId => {
+                    const selectedCommune = communes.find(c => c.id == communeId);
+                    if (selectedCommune) {
+                        zonec.value = selectedCommune.zone;
+                    }
+                });
+            } else if (tsInstance === destinationcTS) {
+                tsInstance.on('change', communeId => {
+                    const selectedCommune = communes.find(c => c.id == communeId);
+                    if (selectedCommune) {
+                        zoned.value = selectedCommune.zone;
+                    }
+                });
+            }
             })
             .catch(err => {
-                console.error('Erreur chargement communes :', err);
-                alert('Échec du chargement des communes.');
+            console.error('Erreur chargement communes :', err);
+            alert('Échec du chargement des communes.');
             });
     }
 

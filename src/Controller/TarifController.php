@@ -3,9 +3,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Tarif;
 use App\Repository\TarifRepository;
-use App\Repository\CommuneRepository;
 use App\Repository\WilayaRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,47 +16,39 @@ class TarifController extends AbstractController
     public function getTarifs(
         Request $request,
         TarifRepository $tarifRepo,
-        CommuneRepository $communeRepo,
         WilayaRepository $wilayaRepo
     ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
-        $origineWilaya = $wilayaRepo->find($data['origin']['wilaya']);
-        $origineCommune = $communeRepo->find($data['origin']['commune']);
-        $destinationWilaya = $wilayaRepo->find($data['destination']['wilaya']);
-        $destinationCommune = $communeRepo->find($data['destination']['commune']);
+        // Récupération des entités Wilaya
+        $origineWilaya      = $wilayaRepo->find($data['origin']['wilaya'] ?? 0);
+        $destinationWilaya  = $wilayaRepo->find($data['destination']['wilaya'] ?? 0);
 
-        // Extraire poids sous forme de nombre
-        $poids = floatval(str_replace(['kg', ' '], '', strtolower($data['package']['weight'] ?? '0')));
+        if (!$origineWilaya || !$destinationWilaya) {
+            return $this->json(
+                ['error' => 'Wilaya d’origine ou de destination invalide.'],
+                JsonResponse::HTTP_BAD_REQUEST
+            );
+        }
 
-        $mode = $data['delivery']['mode'] ?? 'domicile';
-        $urgence = $data['delivery']['urgency'] ?? 'standard';
-
+        // Recherche des tarifs uniquement par wilayas
         $tarifs = $tarifRepo->createQueryBuilder('t')
             ->andWhere('t.origineWilaya = :ow')
             ->andWhere('t.destinationWilaya = :dw')
-            ->andWhere('t.mode = :mode')
-            ->andWhere('t.urgence = :urgence')
-            ->andWhere('t.poidsMin <= :poids')
-            ->andWhere('t.poidsMax >= :poids')
             ->setParameter('ow', $origineWilaya)
             ->setParameter('dw', $destinationWilaya)
-            ->setParameter('mode', $mode)
-            ->setParameter('urgence', $urgence)
-            ->setParameter('poids', $poids)
+            ->orderBy('t.tarif', 'ASC')
             ->getQuery()
             ->getResult();
 
-        $results = [];
-
-        foreach ($tarifs as $tarif) {
-            $results[] = [
-                'tarif' => $tarif->getTarif(),
-                'delai_heures' => $tarif->getDelaiHeures(),
-                'societe' => $tarif->getSociete()->getNom(), 
-                'siteWeb' => $tarif->getSociete()->getSiteWeb(), 
+        // Format de la réponse
+        $results = array_map(function($tarif) {
+            return [
+                'societe' => $tarif->getSociete()->getNom(),
+                'siteWeb' => $tarif->getSociete()->getSiteWeb(),
+                'tarif'    => $tarif->getTarif(),
             ];
-        }
+        }, $tarifs);
 
         return $this->json($results);
     }

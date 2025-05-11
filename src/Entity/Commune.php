@@ -20,6 +20,9 @@ class Commune
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private Wilaya $wilaya;
 
+    #[ORM\Column(type: 'string', length: 1, nullable: true)]
+    private ?string $zone = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -43,5 +46,15 @@ class Commune
     public function setWilaya(Wilaya $wilaya): void
     {
         $this->wilaya = $wilaya;
+    }
+
+    public function getZone(): ?string
+    {
+        return $this->zone;
+    }
+
+    public function setZone(?string $zone): void
+    {
+        $this->zone = $zone;
     }
 }

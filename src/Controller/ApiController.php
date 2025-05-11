@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\CommuneRepository;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class ApiController extends AbstractController
@@ -24,11 +25,14 @@ class ApiController extends AbstractController
 
         $data = array_map(fn($commune) => [
             'id' => $commune->getId(),
-            'name' => $commune->getNom()
+            'name' => $commune->getNom(),
+            'zone' => $commune->getZone()
         ], $communes);
 
         return new JsonResponse($data);
     }
+  
+    
 }
 
 
