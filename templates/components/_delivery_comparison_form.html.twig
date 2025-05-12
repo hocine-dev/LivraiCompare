@@ -371,8 +371,8 @@ const minTarif = Math.min(...data.map(r => parseFloat(r.tarif)));
 
 
 data.forEach(r => {
-	if (formData.delivery.express === 'Non') {
-		r.delai_heures = 72; 
+	if (formData.delivery.express === 'Non' || r.DelaiLivraison > 96) {
+		r.delai_heures = r.DelaiLivraison;
 	} else {
 		switch (formData.delivery.urgency) {
 			case 'same-day':
@@ -385,10 +385,23 @@ data.forEach(r => {
 				r.delai_heures = 48;
 				break;
 			default:
-				r.delai_heures = 72; 
+				r.delai_heures = r.DelaiLivraison;
 		}
 	}
 });
+
+// Filter out results with delays greater than the selected urgency if express mode is active
+if (formData.delivery.express === 'Oui') {
+	const urgencyHours = {
+		'same-day': 12,
+		'next-day': 24,
+		'two-day': 48
+	}[formData.delivery.urgency] || 96; // Default to 96 hours if no urgency is selected
+
+	data = data.filter(r => r.delai_heures <= urgencyHours);
+}
+
+
 
 
 // Trouver le délai le plus court
@@ -457,7 +470,7 @@ buttonClasses += ' bg-emerald-600 text-white hover:bg-emerald-700';
 badgeHTML = '<span class="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-emerald-100 text-emerald-800">💎 Meilleur prix</span>';
 } else if (result.isQuickest) {
 cardClasses += ' border-amber-200';
-badgeHTML = '<span class="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-amber-100 text-amber-800"><i class="fas fa-bolt mr-1"></i>Plus rapide</span>';
+badgeHTML = '<span class=" bg-emerald-100 absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-amber-100 text-amber-800"><i class="fas fa-bolt mr-1 "></i>Plus rapide</span>';
 buttonClasses += ' border border-input bg-background hover:bg-accent hover:text-accent-foreground';
 } else {
 buttonClasses += ' border border-input bg-background hover:bg-accent hover:text-accent-foreground';
@@ -507,8 +520,8 @@ parseFloat(result.tarif).toFixed(0)
 							<div class="bg-gray-50 p-3 rounded-lg">
 								<i class="fas fa-clock text-amber-600 mb-1"></i>
 								<p class="font-bold text-lg">${
-result.delai_heures
-}h</p>
+result.delai_heures > 72 ? (result.delai_heures / 24).toFixed(0) + 'j' : result.delai_heures + 'h'
+}</p>
 								<p class="text-xs text-gray-500">Délai</p>
 							</div>
 							<div class="bg-gray-50 p-3 rounded-lg">

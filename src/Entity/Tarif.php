@@ -29,6 +29,9 @@ class Tarif
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
     private float $tarif;
 
+    #[ORM\Column(type: 'integer')]
+private int $delaiLivraison;
+
     public function getId(): int
     {
         return $this->id;
@@ -77,4 +80,15 @@ class Tarif
         $this->tarif = $tarif;
         return $this;
     }
+
+    public function getDelaiLivraison(): int
+{
+    return $this->delaiLivraison;
+}
+
+public function setDelaiLivraison(int $delaiLivraison): self
+{
+    $this->delaiLivraison = $delaiLivraison;
+    return $this;
+}
 }

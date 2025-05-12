@@ -47,6 +47,7 @@ class TarifController extends AbstractController
                 'societe' => $tarif->getSociete()->getNom(),
                 'siteWeb' => $tarif->getSociete()->getSiteWeb(),
                 'tarif'    => $tarif->getTarif(),
+                'DelaiLivraison'    => $tarif->getDelaiLivraison(),
             ];
         }, $tarifs);
 
