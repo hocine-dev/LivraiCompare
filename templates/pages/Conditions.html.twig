@@ -1,0 +1,81 @@
+{# templates/pages/conditions.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Conditions d'utilisation - LivraiCompareAlgérie{% endblock %}
+
+{% block body %}
+<div class="flex min-h-screen flex-col">
+   
+
+    <main class="flex-1 py-12">
+        <div class="container px-4 md:px-6 mx-auto">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold tracking-tighter mb-2">Conditions d'utilisation</h1>
+                    <p class="text-gray-500">Dernière mise à jour : {{ "now"|date("d/m/Y") }}</p>
+                </div>
+
+                <div class="prose prose-emerald max-w-none">
+                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-8">
+                        <p class="text-emerald-700">Bienvenue sur LivraiCompareAlgérie. En utilisant notre service, vous acceptez de respecter les présentes conditions d'utilisation. Veuillez les lire attentivement.</p>
+                    </div>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">1. Acceptation des conditions</h2>
+                    <p>En accédant et en utilisant le service LivraiCompareAlgérie (ci-après dénommé "le Service"), vous acceptez d'être lié par les présentes Conditions d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre Service.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">2. Description du service</h2>
+                    <p>LivraiCompareAlgérie est une plateforme de comparaison des tarifs et délais de livraison proposés par différents transporteurs en Algérie. Notre Service permet aux utilisateurs de comparer les options de livraison disponibles en fonction de critères spécifiques tels que l'origine, la destination, le poids du colis et d'autres paramètres.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">3. Utilisation du service</h2>
+                    <p>En utilisant notre Service, vous vous engagez à :</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>Fournir des informations exactes et complètes lors de l'utilisation du Service</li>
+                        <li>Utiliser le Service conformément aux lois et réglementations applicables</li>
+                        <li>Ne pas utiliser le Service à des fins illégales ou non autorisées</li>
+                        <li>Ne pas interférer avec ou perturber le fonctionnement du Service</li>
+                        <li>Ne pas tenter d'accéder à des zones ou fonctionnalités du Service auxquelles vous n'êtes pas autorisé à accéder</li>
+                    </ul>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">4. Exactitude des informations</h2>
+                    <p>Nous nous efforçons de fournir des informations précises et à jour concernant les tarifs et délais de livraison. Cependant, ces informations sont fournies par les transporteurs partenaires et peuvent changer sans préavis. LivraiCompareAlgérie ne garantit pas l'exactitude, l'exhaustivité ou la pertinence des informations fournies par le Service.</p>
+                    <p>Les tarifs affichés sont indicatifs et peuvent varier en fonction de facteurs spécifiques tels que les promotions temporaires, les frais supplémentaires ou les conditions particulières appliquées par les transporteurs. Nous vous recommandons de vérifier les tarifs finaux auprès du transporteur choisi avant de finaliser votre expédition.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">5. Comptes utilisateurs</h2>
+                    <p>Certaines fonctionnalités de notre Service peuvent nécessiter la création d'un compte utilisateur. Vous êtes responsable de maintenir la confidentialité de vos informations de connexion et de toutes les activités qui se produisent sous votre compte. Vous acceptez de nous informer immédiatement de toute utilisation non autorisée de votre compte.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">6. Propriété intellectuelle</h2>
+                    <p>Le contenu du Service, y compris mais sans s'y limiter, les textes, graphiques, logos, icônes, images, clips audio, téléchargements numériques et compilations de données, est la propriété de LivraiCompareAlgérie ou de ses fournisseurs de contenu et est protégé par les lois algériennes et internationales sur la propriété intellectuelle.</p>
+                    <p>Vous n'êtes pas autorisé à reproduire, distribuer, modifier, afficher publiquement, transmettre ou exploiter de quelque manière que ce soit le contenu du Service sans notre autorisation écrite préalable.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">7. Limitation de responsabilité</h2>
+                    <p>Dans toute la mesure permise par la loi applicable, LivraiCompareAlgérie ne sera pas responsable des dommages directs, indirects, accessoires, spéciaux, consécutifs ou punitifs, y compris, mais sans s'y limiter, les pertes de profits, de données, d'utilisation, de clientèle ou autres pertes intangibles, résultant de :</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>Votre utilisation ou incapacité à utiliser le Service</li>
+                        <li>Tout accès non autorisé à nos serveurs et/ou aux informations personnelles qui y sont stockées</li>
+                        <li>Toute interruption ou cessation de transmission vers ou depuis le Service</li>
+                        <li>Tout bug, virus, cheval de Troie ou similaire qui pourrait être transmis au Service ou par son intermédiaire</li>
+                        <li>Toute erreur ou omission dans le contenu ou pour toute perte ou dommage subi suite à l'utilisation du contenu affiché, transmis ou mis à disposition par le Service</li>
+                    </ul>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">8. Indemnisation</h2>
+                    <p>Vous acceptez de défendre, d'indemniser et de tenir LivraiCompareAlgérie et ses dirigeants, administrateurs, employés et agents indemnes de toute réclamation, responsabilité, dommage, perte et dépense, y compris, sans limitation, les frais juridiques et comptables raisonnables, découlant de ou liés de quelque manière que ce soit à votre accès ou utilisation du Service, à votre violation des présentes Conditions d'utilisation, ou à votre violation de tout droit d'un tiers.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">9. Modifications du service et des conditions</h2>
+                    <p>Nous nous réservons le droit de modifier ou d'interrompre, temporairement ou définitivement, le Service (ou toute partie de celui-ci) avec ou sans préavis. Nous ne serons pas responsables envers vous ou un tiers pour toute modification, suspension ou interruption du Service.</p>
+                    <p>Nous nous réservons également le droit de modifier ces Conditions d'utilisation à tout moment. Les modifications prendront effet dès leur publication sur le Service. Votre utilisation continue du Service après la publication des modifications constitue votre acceptation des nouvelles conditions.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">10. Droit applicable et juridiction</h2>
+                    <p>Les présentes Conditions d'utilisation sont régies et interprétées conformément aux lois de la République Algérienne Démocratique et Populaire. Tout litige découlant de ou lié à ces conditions sera soumis à la juridiction exclusive des tribunaux compétents d'Alger, Algérie.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">11. Contact</h2>
+                    <p>Si vous avez des questions concernant ces Conditions d'utilisation, veuillez nous contacter à :</p>
+                    <p class="font-medium">contact@LivraiCompare-algerie.com</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  
+</div>
+{% endblock %}

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Repository\CommuneRepository;
-use Symfony\Component\HttpFoundation\Request;
+use App\Repository\WilayaRepository;
 
 
 class ApiController extends AbstractController
@@ -18,7 +18,7 @@ class ApiController extends AbstractController
         return $this->render('api/api.html.twig');
     }
 
-    #[Route('/get-communes/{wilayaId}', name: 'get_communes', methods: ['GET'])]
+    #[Route('api/get-communes/{wilayaId}', name: 'get_communes', methods: ['GET'])]
     public function getCommunes($wilayaId, CommuneRepository $communeRepository): JsonResponse
     {
         $communes = $communeRepository->findBy(['wilaya' => $wilayaId]);
@@ -31,8 +31,18 @@ class ApiController extends AbstractController
 
         return new JsonResponse($data);
     }
-  
-    
+
+    #[Route('api/get-wilayas', name: 'get_wilayas', methods: ['GET'])]
+    public function getWilayas(WilayaRepository $wilayaRepository): JsonResponse
+    {
+        $wilayas = $wilayaRepository->findAll();
+
+        $data = array_map(fn($wilaya) => [
+            'id' => $wilaya->getId(),
+            'name' => $wilaya->getNom(),
+            'zone' => $wilaya->getZone()
+        ], $wilayas);
+
+        return new JsonResponse($data);
+    }
 }
-
-

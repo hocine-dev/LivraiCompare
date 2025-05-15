@@ -4,8 +4,16 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    api_key: '%env(API_KEY)%'
 
 services:
+    App\EventListener\VerifyOriginListener:
+        class: App\EventListener\VerifyOriginListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, priority: 100 }
+    # Autowire de SessionInterface
+    Symfony\Component\HttpFoundation\Session\SessionInterface: '@session'
+    
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
@@ -22,3 +30,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # Explicitly define the ApiProxyController service
+    App\Controller\ApiProxyController:
+        public: true # Make the service publicly accessible
+        tags: ['controller.service_arguments'] # Tag it to allow injecting service arguments

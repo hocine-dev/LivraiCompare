@@ -115,16 +115,16 @@
 
 							<label class="relative inline-block">
 								<input type="checkbox" id="express-mode" onchange="toggleExpressMode()" class="
-								      custom-checkbox
-								      appearance-none
-								      w-5 h-5
-								      border border-gray-300
-								      rounded-sm
-								      checked:bg-emerald-600
-								      focus:outline-none focus:ring-2 focus:ring-emerald-500
-								      transition duration-200
-								      cursor-pointer
-								    "/>
+																																								      custom-checkbox
+																																								      appearance-none
+																																								      w-5 h-5
+																																								      border border-gray-300
+																																								      rounded-sm
+																																								      checked:bg-emerald-600
+																																								      focus:outline-none focus:ring-2 focus:ring-emerald-500
+																																								      transition duration-200
+																																								      cursor-pointer
+																																								    "/>
 							</label>
 
 						</div>
@@ -204,10 +204,11 @@
 		<!-- Section des résultats -->
 		<div id="results-section" class="mt-8 space-y-6 hidden"></div>
 	</div>
-</div></div>
+</div></div><script>
 
 
-<script>
+// Afficher / cacher les options express
+
 function toggleExpressMode() {
 const expressMode = document.getElementById('express-mode').checked;
 const expressOptions = document.getElementById('express-options');
@@ -222,40 +223,82 @@ expressOptions.classList.add('hidden');
 }
 }
 
+
+
+// afficher les résultats de la comparaison
+
 function showResults(event) {
 event.preventDefault();
 
+// Show a loading indicator while waiting for results
+const resultsSection = document.getElementById('results-section');
+resultsSection.innerHTML = `
+	<div class="flex items-center justify-center p-6">
+		<div class="flex items-center gap-2">
+			<i class="fas fa-spinner fa-spin text-emerald-600 text-xl"></i>
+			<span class="text-gray-700 font-medium">Chargement des résultats...</span>
+		</div>
+	</div>
+`;
+resultsSection.classList.remove('hidden');
+
+
+
+
+
+
 // Validation des champs requis
 const requiredFields = [
-	{ id: 'origin', name: 'Wilaya d\'origine' },
-	{ id: 'originc', name: 'Commune d\'origine' },
-	{ id: 'destination', name: 'Wilaya de destination' },
-	{ id: 'destinationc', name: 'Commune de destination' },
-	{ id: 'weight', name: 'Poids du colis' },
-	{ id: 'value', name: 'Valeur du colis' }
+{
+id: 'origin',
+name: 'Wilaya d\'origine'
+},
+{
+id: 'originc',
+name: 'Commune d\'origine'
+},
+{
+id: 'destination',
+name: 'Wilaya de destination'
+},
+{
+id: 'destinationc',
+name: 'Commune de destination'
+}, {
+id: 'weight',
+name: 'Poids du colis'
+}, {
+id: 'value',
+name: 'Valeur du colis'
+}
 ];
 
+
+// affichage d'alerte en cas de champ non valide
+
 for (const field of requiredFields) {
-	const value = document.getElementById(field.id).value;
-	if (!value) {
-		const alertContainer = document.createElement('div');
-		alertContainer.className = 'fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50';
-		alertContainer.innerHTML = `
+const value = document.getElementById(field.id).value;
+if (! value) {
+const alertContainer = document.createElement('div');
+alertContainer.className = 'fixed top-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded shadow-lg z-50';
+alertContainer.innerHTML = `
 			<div class="flex items-center">
 				<i class="fas fa-exclamation-circle mr-2"></i>
-				<span>Veuillez remplir le champ : ${field.name}</span>
+				<span>Veuillez remplir le champ : ${
+field.name
+}</span>
 			</div>
 		`;
 
-		document.body.appendChild(alertContainer);
+document.body.appendChild(alertContainer);
 
-		// Automatically remove the alert after 3 seconds
-		setTimeout(() => {
-			alertContainer.remove();
-		}, 3000);
+// Automatically remove the alert after 3 seconds
+setTimeout(() => {
+alertContainer.remove();
+}, 3000);
 
-		return;
-	}
+return;
+}
 }
 
 // recuperation des donné de la forme
@@ -278,302 +321,161 @@ value: document.getElementById('value').value + ' DZD'
 delivery: {
 mode: document.querySelector('input[name="delivery_mode"]:checked') ?. value || 'Non sélectionné',
 express: document.getElementById('express-mode').checked ? 'Oui' : 'Non',
-urgency: document.querySelector('input[name="delivery_urgency"]:checked') ?. value || 'standard'
+urgency: document.getElementById('express-mode').checked ? (document.querySelector('input[name="delivery_urgency"]:checked') ?. value || 'standard') : null
 }
 };
 
-fetch('http://127.0.0.1:8000/api/tarifs', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json'
-},
-body: JSON.stringify({
-	origin: { wilaya: formData.origin.wilaya },
-	destination: { wilaya: formData.destination.wilaya }
-})
-}).then(response => response.json()).then(data => { 
-// Vérifier si les données sont valides
-if (!Array.isArray(data) || data.length === 0) {
-throw new Error('Aucun résultat trouvé.');
-}
 
 
-// Adjust the tarif based on the destination and origin zones using a matrix and return the updated data
-const zoneMatrix = {
-	A: { A: 1.0, B: 1.1, C: 1.2, D: 1.3 },
-	B: { A: 1.1, B: 1.0, C: 1.15, D: 1.25 },
-	C: { A: 1.2, B: 1.15, C: 1.0, D: 1.25 },
-	D: { A: 1.3, B: 1.25, C: 1.25, D: 1.3 }
-};
-
-data = data.map(r => {
-	const originZone = formData.origin.zone || 'A'; // Default to 'A' if zone is missing
-	const destinationZone = formData.destination.zone || 'A'; // Default to 'A' if zone is missing
-
-	const zoneMultiplier = zoneMatrix[originZone]?.[destinationZone] || 1.0; // Default multiplier is 1.0
-	r.tarif = (parseFloat(r.tarif) * zoneMultiplier).toFixed(2);
-	return r;
-});
-
-// Adjust the tarif based on the weight
-data = data.map(r => {
-	const weight = parseFloat(formData.package.weight);
-	if (weight > 5) {
-		const extraWeight = weight - 5;
-		r.tarif = (parseFloat(r.tarif) + extraWeight * 10).toFixed(2);
-	}
-	return r;
-});
-
-// Adjust the tarif based on the value of the package
-data = data.map(r => {
-	const value = parseFloat(formData.package.value);
-	if (value > 10000) {
-		const extraValue = Math.ceil((value - 10000) / 1000);
-		r.tarif = (parseFloat(r.tarif) + extraValue * 10).toFixed(2);
-	}
-	return r;
-});
-
-// Adjust the tarif based on the delivery mode
-data = data.map(r => {
-	if (formData.delivery.mode === 'domicile') {
-		r.tarif = (parseFloat(r.tarif) + 200).toFixed(2);
-	}
-	return r;
-});
-
-// Adjust the tarif based on the delivery urgency if express mode is checked
-if (formData.delivery.express === 'Oui') {
-	data = data.map(r => {
-		switch (formData.delivery.urgency) {
-			case 'same-day':
-				r.tarif = (parseFloat(r.tarif) + 1000).toFixed(2);
-				break;
-			case 'next-day':
-				r.tarif = (parseFloat(r.tarif) + 500).toFixed(2);
-				break;
-			case 'two-day':
-				r.tarif = (parseFloat(r.tarif) + 300).toFixed(2);
-				break;
-			default:
-				// No additional cost for standard delivery
-				r.tarif = parseFloat(r.tarif).toFixed(2);
-		}
-		return r;
-	});
-}
+// Update the formData object to include the reCAPTCHA token
+grecaptcha.ready(function () {
+    grecaptcha.execute('6LcCJjsrAAAAAPHQpVQ4gFizLX4C9dlqewwoZCcT', { action: 'get_tarifs' }).then(function (recaptchaToken) {
+        // Add the reCAPTCHA token to the formData object
+        formData.recaptchaToken = recaptchaToken;
 
 
-// Trouver le tarif le plus bas
-const minTarif = Math.min(...data.map(r => parseFloat(r.tarif)));
+        // Proceed with the API request
+        fetch('/api/proxy/get-tarifs', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data (same as your existing code)
+            if (!Array.isArray(data) || data.length === 0) {
+                throw new Error('Aucun résultat trouvé.');
+            }
 
+            const minTarif = Math.min(...data.map(r => parseFloat(r.tarif)));
+            const minDelai = Math.min(...data.map(r => parseFloat(r.delai_heures)));
 
+            const results = data.map(r => ({
+                ...r,
+                isLowestPrice: parseFloat(r.tarif) === minTarif,
+                isQuickest: parseFloat(r.delai_heures) === minDelai
+            }));
 
-data.forEach(r => {
-	if (formData.delivery.express === 'Non' || r.DelaiLivraison > 96) {
-		r.delai_heures = r.DelaiLivraison;
-	} else {
-		switch (formData.delivery.urgency) {
-			case 'same-day':
-				r.delai_heures = 12;
-				break;
-			case 'next-day':
-				r.delai_heures = 24;
-				break;
-			case 'two-day':
-				r.delai_heures = 48;
-				break;
-			default:
-				r.delai_heures = r.DelaiLivraison;
-		}
-	}
-});
+            results.sort((a, b) => {
+                if (a.isLowestPrice && !b.isLowestPrice) return -1;
+                if (!a.isLowestPrice && b.isLowestPrice) return 1;
+                return parseFloat(a.delai_heures) - parseFloat(b.delai_heures);
+            });
 
-// Filter out results with delays greater than the selected urgency if express mode is active
-if (formData.delivery.express === 'Oui') {
-	const urgencyHours = {
-		'same-day': 12,
-		'next-day': 24,
-		'two-day': 48
-	}[formData.delivery.urgency] || 96; // Default to 96 hours if no urgency is selected
+            const resultsSection = document.getElementById('results-section');
+            let resultsHTML = `
+                <div class="mt-8 space-y-6 animate-in fade-in slide-in-from-top-5">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">Résultats de la comparaison</h3>
+                        <span class="text-sm text-gray-500">${results.length} transporteurs trouvés</span>
+                    </div>
+                    <div class="grid gap-4">
+            `;
 
-	data = data.filter(r => r.delai_heures <= urgencyHours);
-}
+            results.forEach((result, index) => {
+                const delay = index * 100;
+                let cardClasses = 'rounded-lg border transition-all duration-300 hover:shadow-md';
+                let headerHTML = '';
+                let badgeHTML = '';
+                let buttonClasses = 'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 h-9 px-4 py-2';
 
+                if (result.isLowestPrice) {
+                    cardClasses += ' border-2 border-emerald-500 overflow-hidden';
+                    headerHTML = `
+                        <div class="bg-emerald-50 px-4 py-2 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-check-circle text-emerald-600"></i>
+                                <span class="font-semibold">Meilleure option</span>
+                            </div>
+                            <span class="px-2 py-1 text-xs font-medium rounded-full bg-emerald-100 text-emerald-800">
+                                Économie: ${(Math.max(...data.map(r => parseFloat(r.tarif))) - minTarif).toFixed(0)} DZD
+                            </span>
+                        </div>
+                    `;
+                    buttonClasses += ' bg-emerald-600 text-white hover:bg-emerald-700';
+                    badgeHTML = '<span class="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-emerald-100 text-emerald-800">💎 Meilleur prix</span>';
+                } else if (result.isQuickest) {
+                    cardClasses += ' border-amber-200';
+                    badgeHTML = '<span class=" bg-emerald-100 absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-amber-100 text-amber-800"><i class="fas fa-bolt mr-1 "></i>Plus rapide</span>';
+                    buttonClasses += ' border border-input bg-background hover:bg-accent hover:text-accent-foreground';
+                } else {
+                    buttonClasses += ' border border-input bg-background hover:bg-accent hover:text-accent-foreground';
+                }
 
+                const fiabiliteScore = Math.max(70, 100 - (parseFloat(result.delai_heures) / 2) - (parseFloat(result.tarif) / 1000));
+                let fiabiliteClass = 'text-emerald-500';
+                if (fiabiliteScore < 80) fiabiliteClass = 'text-amber-500';
+                if (fiabiliteScore < 70) fiabiliteClass = 'text-red-500';
 
+                resultsHTML += `
+                    <div class="${cardClasses}" style="animation: fadeIn 0.5s ease-out ${delay}ms forwards; opacity: 0;">
+                        ${headerHTML}
+                        <div class="p-4 relative">
+                            ${badgeHTML}
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="h-14 w-14 rounded-full bg-gray-100 flex items-center justify-center shadow-sm">
+                                        <i class="fas fa-truck text-gray-600 text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-lg">${result.societe}</h4>
+                                        <p class="text-sm text-gray-500">
+                                            ${result.isLowestPrice ? 'Recommandé' : 'Livraison standard'}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-3 gap-6 text-center">
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <i class="fas fa-dollar-sign text-emerald-600 mb-1"></i>
+                                        <p class="font-bold text-lg">${parseFloat(result.tarif).toFixed(0)} DZD</p>
+                                        <p class="text-xs text-gray-500">Prix</p>
+                                    </div>
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <i class="fas fa-clock text-amber-600 mb-1"></i>
+                                        <p class="font-bold text-lg">${result.delai_heures > 72 ? (result.delai_heures / 24).toFixed(0) + 'j' : result.delai_heures + 'h'}</p>
+                                        <p class="text-xs text-gray-500">Délai</p>
+                                    </div>
+                                    <div class="bg-gray-50 p-3 rounded-lg">
+                                        <i class="fas fa-check-circle ${fiabiliteClass} mb-1"></i>
+                                        <p class="font-bold text-lg">${fiabiliteScore}%</p>
+                                        <p class="text-xs text-gray-500">Fiabilité</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="${buttonClasses}" onclick="selectTransporter('${result.societe}', ${result.tarif}, '${result.siteWeb}')">
+                                    ${result.isLowestPrice ? '<i class="fas fa-star mr-2"></i>' : ''} Choisir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
 
-// Trouver le délai le plus court
-const minDelai = Math.min(...data.map(r => parseFloat(r.delai_heures)));
+            resultsHTML += `
+                    </div>
+                </div>
+            `;
 
-// Marquer les résultats avec isLowestPrice et isQuickest
-const results = data.map(r => ({
-...r,
-isLowestPrice: parseFloat(r.tarif) === minTarif,
-isQuickest: parseFloat(r.delai_heures) === minDelai
-}));
-
-// Trier les résultats (meilleur prix en premier, puis par délai)
-results.sort((a, b) => {
-if (a.isLowestPrice && !b.isLowestPrice) 
-return -1;
-
-if (!a.isLowestPrice && b.isLowestPrice) 
-return 1;
-
-return parseFloat(a.delai_heures) - parseFloat(b.delai_heures);
-});
-
-// Récupérer la section des résultats
-const resultsSection = document.getElementById('results-section');
-
-// Créer le contenu HTML pour la section des résultats
-let resultsHTML = `
-		<div class="mt-8 space-y-6 animate-in fade-in slide-in-from-top-5">
-			<div class="flex items-center justify-between mb-4">
-				<h3 class="text-xl font-bold">Résultats de la comparaison</h3>
-				<span class="text-sm text-gray-500">${
-results.length
-} transporteurs trouvés</span>
-			</div>
-			<div class="grid gap-4">
-	`;
-
-// Générer le HTML pour chaque résultat
-results.forEach((result, index) => {
-const delay = index * 100;
-// Délai pour l'animation progressive
-
-// Déterminer les classes et badges en fonction du résultat
-let cardClasses = 'rounded-lg border transition-all duration-300 hover:shadow-md';
-let headerHTML = '';
-let badgeHTML = '';
-let buttonClasses = 'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 h-9 px-4 py-2';
-
-if (result.isLowestPrice) {
-cardClasses += ' border-2 border-emerald-500 overflow-hidden';
-headerHTML = `
-				<div class="bg-emerald-50 px-4 py-2 flex items-center justify-between">
-					<div class="flex items-center gap-2">
-						<i class="fas fa-check-circle text-emerald-600"></i>
-						<span class="font-semibold">Meilleure option</span>
-					</div>
-					<span class="px-2 py-1 text-xs font-medium rounded-full bg-emerald-100 text-emerald-800">
-						Économie: ${
-(Math.max(...data.map(r => parseFloat(r.tarif))) - minTarif).toFixed(0)
-} DZD
-					</span>
-				</div>
-			`;
-buttonClasses += ' bg-emerald-600 text-white hover:bg-emerald-700';
-badgeHTML = '<span class="absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-emerald-100 text-emerald-800">💎 Meilleur prix</span>';
-} else if (result.isQuickest) {
-cardClasses += ' border-amber-200';
-badgeHTML = '<span class=" bg-emerald-100 absolute top-2 right-2 px-2 py-1 text-xs font-medium rounded-full bg-amber-100 text-amber-800"><i class="fas fa-bolt mr-1 "></i>Plus rapide</span>';
-buttonClasses += ' border border-input bg-background hover:bg-accent hover:text-accent-foreground';
-} else {
-buttonClasses += ' border border-input bg-background hover:bg-accent hover:text-accent-foreground';
-}
-
-// Calculer le score de fiabilité (pour l'exemple, basé sur le délai et le tarif)
-const fiabiliteScore = Math.max(70, 100 - (parseFloat(result.delai_heures) / 2) - (parseFloat(result.tarif) / 1000));
-
-// Déterminer la classe de fiabilité
-let fiabiliteClass = 'text-emerald-500';
-if (fiabiliteScore < 80) 
-fiabiliteClass = 'text-amber-500';
-
-if (fiabiliteScore < 70) 
-fiabiliteClass = 'text-red-500';
-
-
-resultsHTML += `
-			<div class="${cardClasses}" style="animation: fadeIn 0.5s ease-out ${delay}ms forwards; opacity: 0;">
-				${headerHTML}
-				<div class="p-4 relative">
-					${badgeHTML}
-					<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-						<div class="flex items-center gap-3">
-							<div class="h-14 w-14 rounded-full bg-gray-100 flex items-center justify-center shadow-sm">
-								<i class="fas fa-truck text-gray-600 text-xl"></i>
-							</div>
-							<div>
-								<h4 class="font-bold text-lg">${
-result.societe
-}</h4>
-								<p class="text-sm text-gray-500">
-									${
-result.isLowestPrice ? 'Recommandé' : 'Livraison standard'
-}
-								</p>
-							</div>
-						</div>
-						<div class="grid grid-cols-3 gap-6 text-center">
-							<div class="bg-gray-50 p-3 rounded-lg">
-								<i class="fas fa-dollar-sign text-emerald-600 mb-1"></i>
-								<p class="font-bold text-lg">${
-parseFloat(result.tarif).toFixed(0)
-} DZD</p>
-								<p class="text-xs text-gray-500">Prix</p>
-							</div>
-							<div class="bg-gray-50 p-3 rounded-lg">
-								<i class="fas fa-clock text-amber-600 mb-1"></i>
-								<p class="font-bold text-lg">${
-result.delai_heures > 72 ? (result.delai_heures / 24).toFixed(0) + 'j' : result.delai_heures + 'h'
-}</p>
-								<p class="text-xs text-gray-500">Délai</p>
-							</div>
-							<div class="bg-gray-50 p-3 rounded-lg">
-								<i class="fas fa-check-circle ${fiabiliteClass} mb-1"></i>
-								<p class="font-bold text-lg">${fiabiliteScore}%</p>
-								<p class="text-xs text-gray-500">Fiabilité</p>
-							</div>
-						</div>
-						<button type="button" class="${buttonClasses}" onclick="selectTransporter('${
-result.societe
-}', ${
-result.tarif
-}, '${
-result.siteWeb
-}')">
-							${
-result.isLowestPrice ? '<i class="fas fa-star mr-2"></i>' : ''
-} Choisir
-						</button>
-					</div>
-				</div>
-			</div>
-		`;
-});
-
-// Fermer les divs
-resultsHTML += `
-			</div>
-		</div>
-	`;
-
-// Mettre à jour la section des résultats
-resultsSection.innerHTML = resultsHTML;
-resultsSection.classList.remove('hidden');
-
-// Scroll vers les résultats
-resultsSection.scrollIntoView({behavior: 'smooth'});
-}).catch(error => {
-console.error('Erreur :', error);
-
-// Afficher un message d'erreur à l'utilisateur
-const resultsSection = document.getElementById('results-section');
-resultsSection.innerHTML = `
-		<div class="mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
-			<div class="flex items-center gap-2">
-				<i class="fas fa-exclamation-circle text-red-500"></i>
-				<p class="font-medium">Aucun transporteur disponible pour votre colis.</p>
-			</div>
-			<p class="mt-2 text-sm">Veuillez réessayer ultérieurement ou contacter le support si le problème persiste.</p>
-		</div>
-	`;
-resultsSection.classList.remove('hidden');
+            resultsSection.innerHTML = resultsHTML;
+            resultsSection.classList.remove('hidden');
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            const resultsSection = document.getElementById('results-section');
+            resultsSection.innerHTML = `
+                <div class="mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-exclamation-circle text-red-500"></i>
+                        <p class="font-medium">Aucun transporteur disponible pour votre colis.</p>
+                    </div>
+                    <p class="mt-2 text-sm">Veuillez réessayer ultérieurement ou contacter le support si le problème persiste.</p>
+                </div>
+            `;
+            resultsSection.classList.remove('hidden');
+        });
+    });
 });
 
 
@@ -593,6 +495,4 @@ document.head.appendChild(style);
 // Fonction pour sélectionner un transporteur
 function selectTransporter(societe, tarif, siteWeb) {
 window.open(siteWeb, '_blank');
-}
-
-</script>
+}</script>

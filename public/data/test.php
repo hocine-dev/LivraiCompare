@@ -1,161 +1,127 @@
 <?php
-ini_set('memory_limit', '512M'); // Increase memory limit to 512 MB
-// Liste des communes de la wilaya d'Alger (code wilaya 16)
-$communes = [
-    ['code' => 1601, 'name' => 'Alger Centre'],
-    ['code' => 1602, 'name' => 'Sidi M\'Hamed'],
-    ['code' => 1603, 'name' => 'El Madania'],
-    ['code' => 1604, 'name' => 'Belouizdad'],
-    ['code' => 1605, 'name' => 'Bab El Oued'],
-    ['code' => 1606, 'name' => 'Bologhine'],
-    ['code' => 1607, 'name' => 'Casbah'],
-    ['code' => 1608, 'name' => 'Oued Koriche'],
-    ['code' => 1609, 'name' => 'Bir Mourad Raïs'],
-    ['code' => 1610, 'name' => 'El Biar'],
-    ['code' => 1611, 'name' => 'Bouzareah'],
-    ['code' => 1612, 'name' => 'Birkhadem'],
-    ['code' => 1613, 'name' => 'El Harrach'],
-    ['code' => 1614, 'name' => 'Baraki'],
-    ['code' => 1615, 'name' => 'Oued Smar'],
-    ['code' => 1616, 'name' => 'Bachdjerrah'],
-    ['code' => 1617, 'name' => 'Hussein Dey'],
-    ['code' => 1618, 'name' => 'Kouba'],
-    ['code' => 1619, 'name' => 'Bourouba'],
-    ['code' => 1620, 'name' => 'Dar El Beïda'],
-    ['code' => 1621, 'name' => 'Bab Ezzouar'],
-    ['code' => 1622, 'name' => 'Ben Aknoun'],
-    ['code' => 1623, 'name' => 'Dely Ibrahim'],
-    ['code' => 1624, 'name' => 'El Hammamet'],
-    ['code' => 1625, 'name' => 'Raïs Hamidou'],
-    ['code' => 1626, 'name' => 'Djasr Kasentina'],
-    ['code' => 1627, 'name' => 'El Mouradia'],
-    ['code' => 1628, 'name' => 'Hydra'],
-    ['code' => 1629, 'name' => 'Mohammadia'],
-    ['code' => 1630, 'name' => 'Bordj El Kiffan'],
-    ['code' => 1631, 'name' => 'El Magharia'],
-    ['code' => 1632, 'name' => 'Beni Messous'],
-    ['code' => 1633, 'name' => 'Les Eucalyptus'],
-    ['code' => 1634, 'name' => 'Birtouta'],
-    ['code' => 1635, 'name' => 'Tessala El Merdja'],
-    ['code' => 1636, 'name' => 'Ouled Chebel'],
-    ['code' => 1637, 'name' => 'Sidi Moussa'],
-    ['code' => 1638, 'name' => 'Aïn Taya'],
-    ['code' => 1639, 'name' => 'Bordj El Bahri'],
-    ['code' => 1640, 'name' => 'El Marsa'],
-    ['code' => 1641, 'name' => 'H\'raoua'],
-    ['code' => 1642, 'name' => 'Rouïba'],
-    ['code' => 1643, 'name' => 'Reghaïa'],
-    ['code' => 1644, 'name' => 'Aïn Benian'],
-    ['code' => 1645, 'name' => 'Staoueli'],
-    ['code' => 1646, 'name' => 'Zeralda'],
-    ['code' => 1647, 'name' => 'Mahelma'],
-    ['code' => 1648, 'name' => 'Rahmania'],
-    ['code' => 1649, 'name' => 'Souidania'],
-    ['code' => 1650, 'name' => 'Cheraga'],
-    ['code' => 1651, 'name' => 'Ouled Fayet'],
-    ['code' => 1652, 'name' => 'El Achour'],
-    ['code' => 1653, 'name' => 'Draria'],
-    ['code' => 1654, 'name' => 'Douera'],
-    ['code' => 1655, 'name' => 'Baba Hassen'],
-    ['code' => 1656, 'name' => 'Khraicia'],
-    ['code' => 1657, 'name' => 'Saoula'],
+// Générateur de SQL optimisé pour la table `tarif`
+$filePath = __DIR__ . '/insert_tarifs.sql';
+$file = fopen($filePath, 'w');
+
+// 1. Liste des wilayas (id => zone)
+$wilayas = [
+    1 => 'D', 2 => 'B', 3 => 'C', 4 => 'C', 5 => 'C', 6 => 'B',
+    7 => 'C', 8 => 'D', 9 => 'A', 10 => 'B', 11 => 'D', 12 => 'D',
+    13 => 'D', 14 => 'B', 15 => 'B', 16 => 'A', 17 => 'C', 18 => 'B',
+    19 => 'B', 20 => 'C', 21 => 'C', 22 => 'C', 23 => 'C', 24 => 'C',
+    25 => 'C', 26 => 'A', 27 => 'C', 28 => 'B', 29 => 'C', 30 => 'C',
+    31 => 'C', 32 => 'C', 33 => 'D', 34 => 'B', 35 => 'A', 36 => 'C',
+    37 => 'C', 38 => 'B', 39 => 'C', 40 => 'C', 41 => 'C', 42 => 'A',
+    43 => 'C', 44 => 'A', 45 => 'C', 46 => 'B', 47 => 'C', 48 => 'B',
+    49 => 'C', 50 => 'D', 51 => 'C', 52 => 'D', 53 => 'D', 54 => 'D',
+    55 => 'D', 56 => 'D', 57 => 'D', 58 => 'D',
 ];
 
-$modes = ['domicile', 'bureau'];
-$urgences = ['standard', 'two-day', 'same-day', 'express'];
-$poids = [
-    ['min' => 0, 'max' => 5],
-    ['min' => 5, 'max' => 10],
-    ['min' => 10, 'max' => null],
-];
-$prixColis = [
-    ['min' => 0, 'max' => 10000],
-    ['min' => 10000, 'max' => 30000],
-    ['min' => 30000, 'max' => null],
-];
-$societes = [
-    ['id' => 1, 'name' => 'Yalidine Express'],
-    ['id' => 2, 'name' => 'NOEST Express'],
-    ['id' => 3, 'name' => 'ZR Express'],
-];
-$tarifs = [
-    1 => [300, 1900],
-    2 => [500, 2000],
-    3 => [400, 1500],
+// 2. Sociétés et leurs barèmes tarifaires et délais (+2 jours déjà inclus)
+$companies = [
+    1 => [ // Yalidine
+        'rates' => [
+            'intra'    => 350,
+            'same'     => 500,
+            'adjacent' => 700,
+            'far2'     => 900,
+            'far3'     => 1100,
+        ],
+        'delays' => [
+            'intra'    => 3,
+            'same'     => 4,
+            'adjacent' => 5,
+            'far2'     => 7,
+            'far3'     => 9,
+        ],
+    ],
+    2 => [ // ZR
+        'rates' => [
+            'intra'    => 300,
+            'same'     => 450,
+            'adjacent' => 650,
+            'far2'     => 850,
+            'far3'     => 1050,
+        ],
+        'delays' => [
+            'intra'    => 3,
+            'same'     => 3,
+            'adjacent' => 4,
+            'far2'     => 4,
+            'far3'     => 5,
+        ],
+    ],
+    3 => [ // Norest
+        'rates' => [
+            'intra'    => 500,
+            'same'     => 900,
+            'adjacent' => 1300,
+            'far2'     => 1800,
+            'far3'     => 2300,
+        ],
+        'delays' => [
+            'intra'    => 3,
+            'same'     => 4,
+            'adjacent' => 5,
+            'far2'     => 6,
+            'far3'     => 7,
+        ],
+    ],
 ];
 
-// Fonction pour extraire la wilaya d’un code commune
-function getWilayaId($code) {
-    return (int) substr(strval($code), 0, 2);
+// Fonction pour calculer la distance entre deux zones
+function zoneDistance(string $z1, string $z2): int {
+    $order = ['A' => 1, 'B' => 2, 'C' => 3, 'D' => 4];
+    return abs($order[$z1] - $order[$z2]);
 }
 
-function getDelai($urgence) {
-    switch ($urgence) {
-        case 'same-day': return 8;
-        case 'express': return 12;
-        case 'two-day': return 48;
-        default: return 72;
-    }
-}
+// 3. Génération des insertions par lots
+$batchSize = 500;
+$rows = [];
+$count = 0;
 
-$file = fopen('tarifs.sql', 'w');
-fwrite($file, "INSERT INTO tarif (origine_wilaya_id, origine_commune_id, destination_wilaya_id, destination_commune_id, societe_id, mode, urgence, poids_min, poids_max, tarif, prix_colis_min, prix_colis_max, delai_heures) VALUES\n");
-
-$batchSize = 1000;
-$batch = [];
-
-foreach ($communes as $origine) {
-    foreach ($communes as $destination) {
-        if ($origine['code'] == $destination['code']) {
-            continue; // Skip if origin and destination are the same
-        }
-
-        $origine_wilaya_id = (int) substr($origine['code'], 0, 2);
-        $destination_wilaya_id = (int) substr($destination['code'], 0, 2);
-
-        foreach ($modes as $mode) {
-            foreach ($urgences as $urgence) {
-                foreach ($poids as $intervalPoids) {
-                    foreach ($prixColis as $intervalPrix) {
-                        foreach ($societes as $societe) {
-                            $tarif = rand($tarifs[$societe['id']][0], $tarifs[$societe['id']][1]);
-                            $delai_heures = rand(6, 72); // Exemple de délai aléatoire
-
-                            $batch[] = sprintf(
-                                "(%d, %d, %d, %d, %d, '%s', '%s', %.2f, %s, %.2f, %.2f, %s, %d)",
-                                $origine_wilaya_id,
-                                $origine['code'],
-                                $destination_wilaya_id,
-                                $destination['code'],
-                                $societe['id'],
-                                $mode,
-                                $urgence,
-                                $intervalPoids['min'],
-                                $intervalPoids['max'] ?? 'NULL',
-                                $tarif,
-                                $intervalPrix['min'],
-                                $intervalPrix['max'] ?? 'NULL',
-                                $delai_heures
-                            );
-
-                            if (count($batch) >= $batchSize) {
-                                fwrite($file, implode(",\n", $batch) . ",\n");
-                                $batch = [];
-                            }
-                        }
-                    }
+foreach ($wilayas as $origId => $origZone) {
+    foreach ($wilayas as $destId => $destZone) {
+        foreach ($companies as $socId => $cfg) {
+            if ($origId === $destId) {
+                $rate = $cfg['rates']['intra'];
+                $delay = $cfg['delays']['intra'];
+            } elseif ($origZone === $destZone) {
+                $rate = $cfg['rates']['same'];
+                $delay = $cfg['delays']['same'];
+            } else {
+                $dist = zoneDistance($origZone, $destZone);
+                if ($dist === 1) {
+                    $rate = $cfg['rates']['adjacent'];
+                    $delay = $cfg['delays']['adjacent'];
+                } elseif ($dist === 2) {
+                    $rate = $cfg['rates']['far2'];
+                    $delay = $cfg['delays']['far2'];
+                } else {
+                    $rate = $cfg['rates']['far3'];
+                    $delay = $cfg['delays']['far3'];
                 }
+            }
+
+            $rows[] = sprintf("(%d, %d, %d, %.2f, %d)", $origId, $destId, $socId, $rate, $delay);
+            $count++;
+
+            if ($count % $batchSize === 0) {
+                $sql = "INSERT INTO tarif (origine_wilaya_id, destination_wilaya_id, societe_id, tarif, delai_livraison) VALUES\n";
+                $sql .= implode(",\n", $rows) . ";\n";
+                fwrite($file, $sql);
+                $rows = [];
             }
         }
     }
 }
 
-if (!empty($batch)) {
-    fwrite($file, implode(",\n", $batch) . ";\n");
-} else {
-    fseek($file, -2, SEEK_END);
-    fwrite($file, ";\n");
+// Écriture des lignes restantes
+if (!empty($rows)) {
+    $sql = "INSERT INTO tarif (origine_wilaya_id, destination_wilaya_id, societe_id, tarif, delai_livraison) VALUES\n";
+    $sql .= implode(",\n", $rows) . ";\n";
+    fwrite($file, $sql);
 }
 
 fclose($file);
-echo "SQL script generated and saved to tarifs.sql\n";
+echo "Fichier SQL optimisé généré : $filePath\n";

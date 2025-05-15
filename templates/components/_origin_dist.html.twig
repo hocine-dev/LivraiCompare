@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const destinationcTS = new TomSelect('#destinationc',{ create: false, placeholder: 'Sélectionnez une Commune ou tapez pour chercher' });
     const zonec = document.getElementById('zonec');
     const zoned = document.getElementById('zoned');
+
+    
     
     // Disable commune fields initially
     origincTS.disable();
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        fetch(`http://127.0.0.1:8000/get-communes/${wilayaId}`)
+        fetch(`/api/proxy/get-communes/${wilayaId}`)
             .then(res => res.ok ? res.json() : Promise.reject(res.statusText))
             .then(communes => {
             communes.forEach(c => tsInstance.addOption({ value: c.id, text: c.name, zone: c.zone }));
@@ -124,26 +126,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Set the zone value when a commune is selected
             if (tsInstance === origincTS) {
-                tsInstance.on('change', communeId => {
-                    const selectedCommune = communes.find(c => c.id == communeId);
-                    if (selectedCommune) {
-                        zonec.value = selectedCommune.zone;
-                    }
-                });
+            tsInstance.on('change', communeId => {
+                const selectedCommune = communes.find(c => c.id == communeId);
+                if (selectedCommune) {
+                zonec.value = selectedCommune.zone;
+                }
+            });
             } else if (tsInstance === destinationcTS) {
-                tsInstance.on('change', communeId => {
-                    const selectedCommune = communes.find(c => c.id == communeId);
-                    if (selectedCommune) {
-                        zoned.value = selectedCommune.zone;
-                    }
-                });
+            tsInstance.on('change', communeId => {
+                const selectedCommune = communes.find(c => c.id == communeId);
+                if (selectedCommune) {
+                zoned.value = selectedCommune.zone;
+                }
+            });
             }
             })
             .catch(err => {
             console.error('Erreur chargement communes :', err);
             alert('Échec du chargement des communes.');
             });
-    }
+        }
 
     originTS.on('change',      wilayaId => loadCommunes(wilayaId, origincTS));
     destinationTS.on('change', wilayaId => loadCommunes(wilayaId, destinationcTS));

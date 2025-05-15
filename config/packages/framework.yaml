@@ -1,9 +1,24 @@
-# see https://symfony.com/doc/current/reference/configuration/framework.html
+
 framework:
     secret: '%env(APP_SECRET)%'
 
-    # Note that the session will be started ONLY if you read or write from it.
-    session: true
+    session:
+        # Handler par défaut (file/session ou autre selon vos besoins)
+        # handler_id: session.handler.native_file
+
+        # Sécurisation du cookie de session
+        enabled: true
+        cookie_secure: auto     # → true en HTTPS
+        cookie_httponly: true   # → interdit l’accès par JS
+        cookie_samesite: strict # → anti‐CSRF
+
+    csrf_protection: true
+
+    cache:
+        pools:
+            my_cache_pool:
+                adapter: cache.adapter.filesystem
+                default_lifetime: 3600  # Optional, set cache lifetime
 
     #esi: true
     #fragments: true

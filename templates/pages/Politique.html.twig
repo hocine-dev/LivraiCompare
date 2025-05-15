@@ -1,0 +1,127 @@
+{# templates/pages/politique-confidentialite.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Politique de confidentialité - LivraiCompare Algérie{% endblock %}
+
+{% block body %}
+<div class="flex min-h-screen flex-col">
+   
+
+    <main class="flex-1 py-12">
+        <div class="container px-4 md:px-6 mx-auto">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold tracking-tighter mb-2">Politique de confidentialité</h1>
+                    <p class="text-gray-500">Dernière mise à jour : {{ "now"|date("d/m/Y") }}</p>
+                </div>
+
+                <div class="prose prose-emerald max-w-none">
+                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-8">
+                        <p class="text-emerald-700">Chez LivraiCompare Algérie, nous accordons une grande importance à la protection de vos données personnelles. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations lorsque vous utilisez notre service.</p>
+                    </div>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">1. Collecte des informations</h2>
+                    <p>Nous collectons les informations suivantes lorsque vous utilisez notre service :</p>
+                    <h3 class="text-lg font-semibold mt-4 mb-2">1.1 Informations que vous nous fournissez</h3>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>Informations d'expédition : adresses d'origine et de destination, détails des communes et wilayas</li>
+                        <li>Détails du colis : poids, dimensions, valeur déclarée</li>
+                        <li>Préférences de livraison : mode de livraison, options express</li>
+                        <li>Informations de compte : nom, adresse e-mail, numéro de téléphone (si vous créez un compte)</li>
+                        <li>Historique des recherches et des comparaisons effectuées sur notre plateforme</li>
+                    </ul>
+
+                    <h3 class="text-lg font-semibold mt-4 mb-2">1.2 Informations collectées automatiquement</h3>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>Données de connexion : adresse IP, type de navigateur, fournisseur d'accès Internet</li>
+                        <li>Informations sur l'appareil : type d'appareil, système d'exploitation, identifiants d'appareil</li>
+                        <li>Données d'utilisation : pages visitées, temps passé sur le site, actions effectuées</li>
+                        <li>Cookies et technologies similaires pour améliorer votre expérience</li>
+                    </ul>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">2. Utilisation des informations</h2>
+                    <p>Nous utilisons les informations collectées pour :</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li>Fournir, maintenir et améliorer notre service de comparaison de tarifs de livraison</li>
+                        <li>Traiter vos demandes de comparaison et vous présenter les options de livraison disponibles</li>
+                        <li>Personnaliser votre expérience utilisateur et vous proposer des recommandations pertinentes</li>
+                        <li>Communiquer avec vous concernant votre compte, vos demandes ou vos questions</li>
+                        <li>Vous envoyer des notifications importantes concernant notre service</li>
+                        <li>Analyser l'utilisation de notre service pour l'améliorer et développer de nouvelles fonctionnalités</li>
+                        <li>Détecter, prévenir et résoudre les problèmes techniques ou de sécurité</li>
+                        <li>Se conformer aux obligations légales</li>
+                    </ul>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">3. Partage des informations</h2>
+                    <p>Nous pouvons partager vos informations dans les circonstances suivantes :</p>
+                    <h3 class="text-lg font-semibold mt-4 mb-2">3.1 Avec les transporteurs partenaires</h3>
+                    <p>Lorsque vous choisissez un transporteur après avoir comparé les options, nous pouvons partager les informations nécessaires à l'organisation de votre livraison avec le transporteur sélectionné.</p>
+
+                    <h3 class="text-lg font-semibold mt-4 mb-2">3.2 Avec nos prestataires de services</h3>
+                    <p>Nous travaillons avec des prestataires de services tiers qui nous aident à exploiter, fournir, améliorer et développer notre service (hébergement, analyse de données, service client, etc.). Ces prestataires ont accès à vos informations uniquement pour effectuer ces tâches en notre nom et sont tenus de ne pas les divulguer ou les utiliser à d'autres fins.</p>
+
+                    <h3 class="text-lg font-semibold mt-4 mb-2">3.3 Pour des raisons légales</h3>
+                    <p>Nous pouvons divulguer vos informations si la loi l'exige ou en réponse à des demandes légales valides, telles que des ordonnances judiciaires, des mandats ou des assignations à comparaître.</p>
+
+                    <h3 class="text-lg font-semibold mt-4 mb-2">3.4 En cas de transfert d'entreprise</h3>
+                    <p>Si LivraiCompare Algérie est impliqué dans une fusion, acquisition ou vente d'actifs, vos informations peuvent être transférées dans le cadre de cette transaction. Nous vous informerons avant que vos informations ne soient transférées et ne deviennent soumises à une politique de confidentialité différente.</p>
+
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4 my-8">
+                        <p class="text-amber-700 font-medium">Important :</p>
+                        <p class="text-amber-700">Nous ne vendons, n'échangeons ni ne louons vos informations personnelles à des tiers à des fins de marketing sans votre consentement explicite.</p>
+                    </div>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">4. Sécurité des données</h2>
+                    <p>La sécurité de vos données est importante pour nous. Nous mettons en œuvre des mesures de sécurité techniques et organisationnelles appropriées pour protéger vos informations contre tout accès, divulgation, altération ou destruction non autorisés. Cependant, aucune méthode de transmission sur Internet ou méthode de stockage électronique n'est totalement sécurisée, et nous ne pouvons garantir une sécurité absolue.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">5. Conservation des données</h2>
+                    <p>Nous conservons vos informations personnelles aussi longtemps que nécessaire pour fournir les services que vous avez demandés et pour les finalités décrites dans cette politique de confidentialité. Nous conservons également vos informations dans la mesure nécessaire pour respecter nos obligations légales, résoudre les litiges et faire appliquer nos accords.</p>
+                    <p>Si vous souhaitez supprimer votre compte, veuillez nous contacter. Notez que certaines informations peuvent être conservées même après la suppression de votre compte, conformément aux lois applicables.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">6. Cookies et technologies similaires</h2>
+                    <p>Nous utilisons des cookies et des technologies similaires pour améliorer votre expérience sur notre service, comprendre comment vous interagissez avec celui-ci et personnaliser notre contenu.</p>
+                    <p>Vous pouvez configurer votre navigateur pour refuser tous les cookies ou pour indiquer quand un cookie est envoyé. Cependant, si vous n'acceptez pas les cookies, certaines fonctionnalités de notre service peuvent ne pas fonctionner correctement.</p>
+                    <p>Types de cookies que nous utilisons :</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li><strong>Cookies essentiels :</strong> nécessaires au fonctionnement de base du site</li>
+                        <li><strong>Cookies de préférences :</strong> permettent de mémoriser vos préférences et paramètres</li>
+                        <li><strong>Cookies analytiques :</strong> nous aident à comprendre comment les visiteurs interagissent avec le site</li>
+                        <li><strong>Cookies de marketing :</strong> utilisés pour suivre les visiteurs sur les sites web (avec votre consentement)</li>
+                    </ul>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">7. Vos droits</h2>
+                    <p>Conformément aux lois applicables sur la protection des données, vous disposez des droits suivants concernant vos informations personnelles :</p>
+                    <ul class="list-disc pl-6 mb-4">
+                        <li><strong>Droit d'accès :</strong> vous pouvez demander une copie des informations personnelles que nous détenons à votre sujet</li>
+                        <li><strong>Droit de rectification :</strong> vous pouvez demander la correction des informations inexactes ou incomplètes</li>
+                        <li><strong>Droit à l'effacement :</strong> vous pouvez demander la suppression de vos informations personnelles dans certaines circonstances</li>
+                        <li><strong>Droit à la limitation du traitement :</strong> vous pouvez demander la limitation du traitement de vos informations dans certaines circonstances</li>
+                        <li><strong>Droit à la portabilité des données :</strong> vous pouvez demander le transfert de vos informations à un autre service dans un format structuré</li>
+                        <li><strong>Droit d'opposition :</strong> vous pouvez vous opposer au traitement de vos informations dans certaines circonstances</li>
+                    </ul>
+                    <p>Pour exercer ces droits, veuillez nous contacter via les coordonnées fournies à la fin de cette politique.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">8. Protection des données des enfants</h2>
+                    <p>Notre service ne s'adresse pas aux personnes de moins de 18 ans. Nous ne collectons pas sciemment des informations personnelles auprès d'enfants de moins de 18 ans. Si vous êtes un parent ou un tuteur et que vous savez que votre enfant nous a fourni des informations personnelles, veuillez nous contacter afin que nous puissions prendre les mesures nécessaires.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">9. Modifications de cette politique</h2>
+                    <p>Nous pouvons mettre à jour notre politique de confidentialité de temps à autre. Nous vous informerons de tout changement en publiant la nouvelle politique de confidentialité sur cette page et en mettant à jour la date de "dernière mise à jour" en haut de cette politique.</p>
+                    <p>Nous vous encourageons à consulter régulièrement cette politique pour prendre connaissance des éventuelles modifications. Les modifications apportées à cette politique de confidentialité sont effectives lorsqu'elles sont publiées sur cette page.</p>
+
+                    <h2 class="text-xl font-bold mt-8 mb-4">10. Contact</h2>
+                    <p>Si vous avez des questions concernant cette politique de confidentialité ou nos pratiques en matière de protection des données, veuillez nous contacter :</p>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 mt-4">
+                        <p class="font-medium">LivraiCompare Algérie</p>
+                        <p>Adresse : 123 Rue des Transporteurs, Alger, Algérie</p>
+                        <p>Email : privacy@LivraiCompare-algerie.com</p>
+                        <p>Téléphone : +213 XX XX XX XX</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+   
+</div>
+{% endblock %}
