@@ -14,12 +14,14 @@ class ApiProxyController
     private HttpClientInterface $client;
     private HttpKernelInterface $kernel;
     private string $apiKey;
+    private string $google_api;
 
     public function __construct(HttpClientInterface $client, HttpKernelInterface $kernel, ParameterBagInterface $params)
     {
         $this->client = $client;
         $this->kernel = $kernel;
         $this->apiKey = $params->get('api_key'); // depuis config/services.yaml
+        $this->google_api = $params->get('google_api'); // depuis config/services.yaml
     }
 
     #[Route('/api/proxy/get-communes/{wilayaId}', name: 'api_proxy_get_communes', methods: ['GET'])]
@@ -59,7 +61,7 @@ class ApiProxyController
         }
 
         // Vérification reCAPTCHA avec Google
-        $secret = 'google api'; 
+        $secret = $this->google_api; 
         $verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
 
         $response = file_get_contents($verifyUrl . '?secret=' . urlencode($secret) . '&response=' . urlencode($recaptchaToken));
