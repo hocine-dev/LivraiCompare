@@ -17,23 +17,23 @@ FROM php:8.2-apache
 
 WORKDIR /var/www/html
 
-# 1) Installer les extensions PHP & activer mod_rewrite
+# 1) Installer les extensions PHP & activer mod_rewrite (ignore l'erreur si déjà activé)
 RUN apt-get update \
  && apt-get install -y git zip unzip curl libicu-dev libonig-dev libzip-dev \
  && docker-php-ext-install intl pdo pdo_mysql zip \
- && a2enmod rewrite
+ && a2enmod rewrite || true
 
 # 2) Autoriser Composer en root & installer composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 3) Copier d’abord only composer.json/composer.lock pour tirer parti du cache Docker
+# 3) Cacher composer.json/composer.lock pour tirer parti du cache Docker
 COPY composer.json composer.lock ./
 
-# 4) Installer les dépendances PHP SANS lancer les scripts Symfony
+# 4) Installer les dépendances PHP sans scripts auto-exécutés
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-# 5) Copier tout le code (mais exclure vendor/ via .dockerignore, cf. ci-dessous)
+# 5) Copier le reste du code
 COPY . .
 
 # 6) Copier les assets compilés depuis Node
