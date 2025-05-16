@@ -1,51 +1,26 @@
-# Étape 1 — Builder les assets avec Node
-FROM node:20 AS build-assets
+# Utilise l'image PHP 8.1 CLI
+FROM php:8.1-cli
 
+# Installe les extensions PDO pour MySQL (ou pdo_pgsql si PostgreSQL)
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Installe Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'installer.php');" \
+ && php installer.php --install-dir=/usr/local/bin --filename=composer \
+ && rm installer.php
+
+# Définit le dossier de travail
 WORKDIR /app
 
-COPY package*.json ./
-COPY webpack.config.js ./
-COPY tailwind.config.js ./
-COPY assets ./assets
-
-RUN npm install
-RUN npm run build
-
-
-# Étape 2 — Symfony + Apache
-FROM php:8.2-apache
-
-WORKDIR /var/www/html
-
-# 1) Installer les extensions PHP & activer mod_rewrite (ignore l'erreur si déjà activé)
-RUN apt-get update \
- && apt-get install -y git zip unzip curl libicu-dev libonig-dev libzip-dev \
- && docker-php-ext-install intl pdo pdo_mysql zip \
- && a2enmod rewrite || true
-
-# 2) Autoriser Composer en root & installer composer
-ENV COMPOSER_ALLOW_SUPERUSER=1
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# 3) Cacher composer.json/composer.lock pour tirer parti du cache Docker
+# Copie les définitions de dépendances et installe
 COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
-# 4) Installer les dépendances PHP sans scripts auto-exécutés
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
-
-# 5) Copier le reste du code
+# Copie tout le code
 COPY . .
 
-# 6) Copier les assets compilés depuis Node
-COPY --from=build-assets /app/public/build public/build
+# Expose le port utilisé par le serveur PHP intégré
+EXPOSE 10000
 
-# 7) Ajuster les permissions
-RUN chmod +x bin/console \
- && chown -R www-data:www-data var public
-
-# 8) Mettre à jour le DocumentRoot Apache
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri 's!DocumentRoot /var/www/html!DocumentRoot ${APACHE_DOCUMENT_ROOT}!g' \
-    /etc/apache2/sites-available/*.conf
-
-EXPOSE 80
+# Démarre le serveur PHP intégré sur 0.0.0.0:10000
+CMD ["php", "-S", "0.0.0.0:10000", "-t", "public"]
