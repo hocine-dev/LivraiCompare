@@ -6,7 +6,6 @@ WORKDIR /app
 # Copier les fichiers nécessaires pour le build assets
 COPY package*.json ./
 COPY webpack.config.js ./
-COPY postcss.config.js ./
 COPY tailwind.config.js ./
 COPY assets ./assets
 
