@@ -1,58 +1,53 @@
-# ===== STAGE 1 : build des assets (Node) =====
-FROM node:18 AS build-assets
+# Étape 1 — Builder les assets avec Node
+FROM node:20 AS build-assets
 
 WORKDIR /app
-COPY . .
-RUN npm ci
+
+# Copier les fichiers nécessaires pour le build assets
+COPY package*.json ./
+COPY webpack.config.js ./
+COPY postcss.config.js ./
+COPY tailwind.config.js ./
+COPY assets ./assets
+
+# Installer les dépendances Node
+RUN npm install
+
+# Compiler les assets
 RUN npm run build
 
-
-
-# ===== STAGE 2 : application PHP + Apache =====
+# Étape 2 — Symfony + Apache
 FROM php:8.2-apache
 
-# Installer dépendances système et extensions PHP
+WORKDIR /var/www/html
+
+# Installer les extensions PHP nécessaires
 RUN apt-get update && apt-get install -y \
-      git unzip libicu-dev libzip-dev zip libonig-dev \
-    && docker-php-ext-install intl pdo_mysql zip
+    git zip unzip curl libicu-dev libonig-dev libzip-dev \
+    && docker-php-ext-install intl pdo pdo_mysql zip
 
 # Activer mod_rewrite
 RUN a2enmod rewrite
 
-# Autoriser les .htaccess dans toute la conf Apache
-RUN sed -ri 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-
-# Remplacer le VirtualHost pour intégrer un fallback vers index.php
-COPY ./.docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
-
-# Préparer l’application
-WORKDIR /var/www/html
-
-# Copier le code Symfony (inclut public/ sans build)
+# Copier le reste du projet Symfony
 COPY . .
 
-# Copier les assets générés
-COPY --from=build-assets /app/public/build public/build
-
-# Installer Composer et dépendances PHP sans auto-scripts
+# Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-RUN COMPOSER_ALLOW_SUPERUSER=1 composer install \
-      --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-# Vider et réchauffer le cache Symfony
-RUN php bin/console cache:clear --no-warmup --env=prod \
- && php bin/console cache:warmup --env=prod
+# Installer les dépendances PHP
+RUN composer install --no-dev --optimize-autoloader
 
-# Permissions sur var et public/build
-RUN chown -R www-data:www-data var \
- && if [ -d public/build ]; then chown -R www-data:www-data public/build; fi
+# Copier les assets compilés (build) dans l'image finale
+COPY --from=build-assets /app/public/build /var/www/html/public/build
 
-# Variables d’environnement
-ENV APP_ENV=prod
-ENV DATABASE_URL="mysql://if0_39001249:OH5HLy1D7dcD@sql105.infinityfree.com/if0_39001249_livrai"
+# Définir les permissions nécessaires
+RUN chown -R www-data:www-data var public
 
-# Exposer le port Apache
+# Définir DocumentRoot
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+
+# Configurer Apache
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+
 EXPOSE 80
-
-# Démarrer Apache
-CMD ["apache2-foreground"]
