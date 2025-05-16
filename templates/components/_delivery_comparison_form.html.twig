@@ -223,29 +223,10 @@ expressOptions.classList.add('hidden');
 }
 }
 
-
-
 // afficher les résultats de la comparaison
 
 function showResults(event) {
 event.preventDefault();
-
-// Show a loading indicator while waiting for results
-const resultsSection = document.getElementById('results-section');
-resultsSection.innerHTML = `
-	<div class="flex items-center justify-center p-6">
-		<div class="flex items-center gap-2">
-			<i class="fas fa-spinner fa-spin text-emerald-600 text-xl"></i>
-			<span class="text-gray-700 font-medium">Chargement des résultats...</span>
-		</div>
-	</div>
-`;
-resultsSection.classList.remove('hidden');
-
-
-
-
-
 
 // Validation des champs requis
 const requiredFields = [
@@ -273,7 +254,6 @@ name: 'Valeur du colis'
 }
 ];
 
-
 // affichage d'alerte en cas de champ non valide
 
 for (const field of requiredFields) {
@@ -289,7 +269,6 @@ field.name
 }</span>
 			</div>
 		`;
-
 document.body.appendChild(alertContainer);
 
 // Automatically remove the alert after 3 seconds
@@ -325,6 +304,18 @@ urgency: document.getElementById('express-mode').checked ? (document.querySelect
 }
 };
 
+
+// Show a loading indicator while waiting for results
+const resultsSection = document.getElementById('results-section');
+resultsSection.innerHTML = `
+	<div class="flex items-center justify-center p-6">
+		<div class="flex items-center gap-2">
+			<i class="fas fa-spinner fa-spin text-emerald-600 text-xl"></i>
+			<span class="text-gray-700 font-medium">Chargement des résultats...</span>
+		</div>
+	</div>
+`;
+resultsSection.classList.remove('hidden');
 
 
 // Update the formData object to include the reCAPTCHA token

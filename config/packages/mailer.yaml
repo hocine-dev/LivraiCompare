@@ -1,3 +1,8 @@
+# config/packages/mailer.yaml
 framework:
     mailer:
+        # DSN pour ton SMTP Gmail (défini dans .env ou .env.local)
         dsn: '%env(MAILER_DSN)%'
+
+        # (Optionnel) Si tu souhaites utiliser un bus Messenger pour d'autres envois :
+        # message_bus: messenger.bus.default

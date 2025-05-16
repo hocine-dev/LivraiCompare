@@ -120,108 +120,159 @@
             </div>
 
             <!-- Formulaire de contact -->
-            <div class="lg:col-span-2 bg-white rounded-lg shadow-lg p-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-6">Envoyez-nous un message</h2>
-                
-                <form action="" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                    <div class="sm:col-span-2">
-                        <label for="subject" class="block text-sm font-medium text-gray-700">Sujet</label>
-                        <div class="mt-1">
-                            <select id="subject" name="subject" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
-                                <option value="">Sélectionnez un sujet</option>
-                                <option value="question">Question générale</option>
-                                <option value="support">Support technique</option>
-                                <option value="partnership">Partenariat</option>
-                                <option value="billing">Facturation</option>
-                                <option value="other">Autre</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="first-name" class="block text-sm font-medium text-gray-700">Prénom</label>
-                        <div class="mt-1">
-                            <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label for="last-name" class="block text-sm font-medium text-gray-700">Nom</label>
-                        <div class="mt-1">
-                            <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
-                        </div>
-                    </div>
-                    
-                    <div class="sm:col-span-2">
-                        <label for="company" class="block text-sm font-medium text-gray-700">Entreprise</label>
-                        <div class="mt-1">
-                            <input type="text" name="company" id="company" autocomplete="organization" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
-                        </div>
-                    </div>
-                    
-                    <div class="sm:col-span-2">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <div class="mt-1">
-                            <input id="email" name="email" type="email" autocomplete="email" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
-                        </div>
-                    </div>
-                    
-                    <div class="sm:col-span-2">
-                        <label for="phone" class="block text-sm font-medium text-gray-700">Téléphone</label>
-                        <div class="mt-1">
-                            <input type="text" name="phone" id="phone" autocomplete="tel" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md">
-                        </div>
-                    </div>
-                    
-                    <div class="sm:col-span-2">
-                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-                        <div class="mt-1">
-                            <textarea id="message" name="message" rows="6" class="py-3 px-4 block w-full shadow-sm focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded-md"></textarea>
-                        </div>
-                    </div>
-                    
-                    <div class="sm:col-span-2">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0">
-                                <input id="privacy" name="privacy" type="checkbox" class="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded">
-                            </div>
-                            <div class="ml-3">
-                                <p class="text-sm text-gray-500">
-                                    En soumettant ce formulaire, j'accepte que mes données personnelles soient traitées conformément à la <a href="#" class="font-medium text-emerald-600 hover:text-emerald-500">politique de confidentialité</a>.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="sm:col-span-2">
-                        <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500">
-                            Envoyer le message
-                        </button>
-                    </div>
-                </form>
-            </div>
+          <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+    <div class="flex items-center gap-3 mb-8">
+        <div class="h-10 w-10 rounded-full bg-emerald-100 flex items-center justify-center">
+            <i class="fas fa-envelope text-emerald-600"></i>
         </div>
+        <h2 class="text-2xl font-bold text-gray-900">Envoyez-nous un message</h2>
     </div>
+   {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="mb-4 p-4 rounded-lg text-sm font-medium
+                    {{ label == 'success' 
+                        ? 'bg-green-100 text-green-800 border border-green-200' 
+                        : 'bg-red-100 text-red-800 border border-red-200' }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
 
-    <!-- Section Carte -->
-    <div class="bg-gray-50 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-extrabold text-gray-900">Où nous trouver</h2>
-                <p class="mt-4 text-lg text-gray-500">Venez nous rendre visite dans nos bureaux à Alger</p>
-            </div>
-            
-            <div class="mt-12 bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="h-96 w-full">
-                    <!-- Remplacez par votre iframe Google Maps ou OpenStreetMap -->
-                    <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                        <p class="text-gray-500">Carte interactive - Remplacez par votre iframe de carte</p>
-                        <!-- Exemple: <iframe src="https://www.google.com/maps/embed?..." width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
-                    </div>
+
+    <form action="" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+        <!-- Sujet -->
+        <div class="sm:col-span-2">
+            <label for="subject" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <span>Sujet</span>
+                <span class="text-red-500 ml-1">*</span>
+            </label>
+            <div class="relative">
+                <select id="subject" name="subject" required class="appearance-none py-3 px-4 block w-full shadow-sm border-gray-300 rounded-lg transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none">
+                    <option value="">Sélectionnez un sujet</option>
+                    <option value="question">Question générale</option>
+                    <option value="support">Support technique</option>
+                    <option value="partnership">Partenariat</option>
+                    <option value="billing">API et Facturation</option>
+                    <option value="other">Autre</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <i class="fas fa-chevron-down text-gray-400"></i>
                 </div>
             </div>
         </div>
+        
+        <!-- Prénom -->
+        <div>
+            <label for="first-name" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <span>Prénom</span>
+                <span class="text-red-500 ml-1">*</span>
+            </label>
+            <input type="text" name="first-name" id="first-name" required autocomplete="given-name" class="py-3 px-4 block w-full shadow-sm border-gray-300 rounded-lg transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none">
+        </div>
+        
+        <!-- Nom -->
+        <div>
+            <label for="last-name" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <span>Nom</span>
+                <span class="text-red-500 ml-1">*</span>
+            </label>
+            <input type="text" name="last-name" id="last-name" required autocomplete="family-name" class="py-3 px-4 block w-full shadow-sm border-gray-300 rounded-lg transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none">
+        </div>
+        
+        <!-- Email -->
+        <div class="sm:col-span-2">
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <span>Email</span>
+                <span class="text-red-500 ml-1">*</span>
+            </label>
+            <input id="email" name="email" type="email" required autocomplete="email" class="py-3 px-4 block w-full shadow-sm border-gray-300 rounded-lg transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none">
+        </div>
+        
+        <!-- Message -->
+        <div class="sm:col-span-2">
+            <label for="message" class="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                <span>Message</span>
+                <span class="text-red-500 ml-1">*</span>
+            </label>
+            <textarea id="message" name="message" rows="6" required class="py-3 px-4 block w-full shadow-sm border-gray-300 rounded-lg transition-colors duration-200 ease-in-out focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none resize-none"></textarea>
+            <p class="mt-1 text-xs text-gray-500 flex items-center">
+                <i class="fas fa-info-circle mr-1"></i>
+                <span>Veuillez fournir autant de détails que possible pour nous aider à mieux vous assister.</span>
+            </p>
+        </div>
+        
+        <!-- Politique de confidentialité -->
+        <div class="sm:col-span-2 mt-2">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <input id="privacy" name="privacy" type="checkbox" required class="h-5 w-5 text-emerald-600 focus:ring-emerald-500 focus:border-emerald-500 border-gray-300 rounded transition-colors duration-200 ease-in-out">
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-gray-600">
+                        En soumettant ce formulaire, j'accepte que mes données personnelles soient traitées conformément à la <a href="/politique" class="font-medium text-emerald-600 hover:text-emerald-700 underline transition-colors duration-200 ease-in-out">politique de confidentialité</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bouton d'envoi -->
+        <div class="sm:col-span-2 mt-4">
+            <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3.5 border border-transparent rounded-lg shadow-md text-base font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-all duration-200 ease-in-out transform hover:-translate-y-0.5">
+                <i class="fas fa-paper-plane mr-2"></i>
+                Envoyer le message
+            </button>
+            <p class="mt-3 text-center text-xs text-gray-500">
+                Nous vous répondrons généralement dans un délai de 24 à 48 heures ouvrables.
+            </p>
+        </div>
+    </form>
+</div>
+        </div>
     </div>
+
+   <!-- Section Carte -->
+<section class="bg-gray-50 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Où nous trouver
+            </h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Venez nous rendre visite dans nos bureaux à Alger</p>
+        </div>
+        
+        <!-- Carte Google Maps avec hauteur triplée -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl">
+            <div class="relative">
+                <!-- Carte Google Maps - hauteur triplée à 1800px -->
+                <div class="w-full" style="height: 50vh;">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10109.12196949112!2d3.1594597429607494!3d36.731841703495896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e53f400021107%3A0x20789d83af7c1048!2sCit%C3%A9%20mokhtar%20zerhouni!5e1!3m2!1sen!2sdz!4v1747389220831!5m2!1sen!2sdz" 
+                        class="w-full h-full"
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    
+                    <!-- Badge de localisation -->
+                    <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm py-2 px-4 rounded-lg shadow-lg z-20 flex items-center space-x-2">
+                        <i class="fas fa-map-pin text-emerald-600"></i>
+                        <span class="font-medium text-gray-900">Cité Mokhtar Zerhouni, Alger</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Boutons d'action -->
+            <div class="bg-white px-6 py-4 flex justify-center gap-4 border-t border-gray-100">
+                <a href="https://www.google.com/maps/dir//Cit%C3%A9+mokhtar+zerhouni+P5MG%2BGJF+Mohammadia/@36.734022,3.1769004,4643m/data=!3m1!1e3!4m8!4m7!1m0!1m5!1m1!1s0x128e53f400021107:0x20789d83af7c1048!2m2!1d3.1769004!2d36.734022?entry=ttu&g_ep=EgoyMDI1MDUxMy4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors duration-200">
+                    <i class="fas fa-directions mr-2"></i>
+                    Itinéraire
+                </a>
+              
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- Section FAQ -->
     <div class="bg-white py-16">
@@ -246,7 +297,7 @@
                         </dt>
                         <dd class="mt-2 pr-12 hidden">
                             <p class="text-base text-gray-500">
-                                Pour obtenir un devis personnalisé, vous pouvez utiliser notre formulaire de contact en sélectionnant "Devis" comme sujet, ou nous appeler directement au +213 (0) 23 45 67 89. Un conseiller vous contactera sous 24h pour discuter de vos besoins spécifiques.
+                                Pour obtenir un devis personnalisé, vous pouvez utiliser notre formulaire de contact en sélectionnant "API et Facturation" comme sujet, ou nous appeler directement au +213 (0) 23 45 67 89. Un conseiller vous contactera sous 24h pour discuter de vos besoins spécifiques.
                             </p>
                         </dd>
                     </div>
@@ -320,19 +371,13 @@
                     </h2>
                 </div>
                 <div class="mt-8 flex flex-col space-y-3 sm:flex-row sm:space-y-0 sm:space-x-3 lg:mt-0 lg:flex-shrink-0 lg:ml-4">
-                    <a href="tel:+21323456789" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-emerald-700 bg-white hover:bg-emerald-50 shadow-sm">
+                    <a href="tel:+213553309503" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-emerald-700 bg-white hover:bg-emerald-50 shadow-sm">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                         </svg>
                         Appelez-nous
                     </a>
-                    <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-500 shadow-sm">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                        </svg>
-                        Envoyez un email
-                    </a>
+                    
                 </div>
             </div>
         </div>
