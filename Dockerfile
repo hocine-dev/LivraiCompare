@@ -3,15 +3,13 @@ FROM node:20 AS build-assets
 
 WORKDIR /app
 
-# Copier les fichiers nécessaires pour le build assets
-COPY package*.json ./  
-COPY webpack.config.js ./  
-COPY tailwind.config.js ./  
-COPY assets ./assets  
+COPY package*.json ./
+COPY webpack.config.js ./
+COPY tailwind.config.js ./
+COPY assets ./assets
 
-# Installer les dépendances Node et compiler
-RUN npm install  
-RUN npm run build  
+RUN npm install
+RUN npm run build
 
 
 # Étape 2 — Symfony + Apache
@@ -29,27 +27,36 @@ RUN apt-get update && apt-get install -y \
 ENV COMPOSER_ALLOW_SUPERUSER=1
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 3) Copier les définitions de dépendances PHP pour profiter du cache Docker
+# 3) Copier composer.json/composer.lock pour profiter du cache Docker
 COPY composer.json composer.lock ./
 
-# 4) Installer les dépendances PHP
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+# 4) Installer les dépendances PHP SANS auto-scripts
+RUN composer install \
+      --no-dev \
+      --optimize-autoloader \
+      --no-interaction \
+      --no-scripts
 
 # 5) Copier le reste de l’application Symfony
 COPY . .
 
-# 6) Rendre bin/console exécutable et exécuter les auto-scripts Symfony
-RUN chmod +x bin/console \
- && php bin/console cache:clear --no-warmup --no-interaction \
- && php bin/console assets:install public --no-interaction
+# 6) Rendre bin/console exécutable
+RUN chmod +x bin/console
 
-# 7) Récupérer les assets compilés depuis l’étape Node
+# 7) Exécuter manuellement les scripts Symfony (cache & assets)
+RUN php bin/console cache:clear \
+      --no-warmup \
+      --no-interaction \
+ && php bin/console assets:install public \
+      --no-interaction
+
+# 8) Récupérer les assets compilés depuis l’étape Node
 COPY --from=build-assets /app/public/build /var/www/html/public/build
 
-# 8) Définir les permissions correctes
+# 9) Définir les permissions correctes
 RUN chown -R www-data:www-data var public
 
-# 9) Mettre à jour le DocumentRoot Apache
+# 10) Mettre à jour le DocumentRoot Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!DocumentRoot /var/www/html!DocumentRoot ${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/sites-available/*.conf
